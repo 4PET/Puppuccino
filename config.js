@@ -1,3 +1,3 @@
 module.exports = {
-    PG_URI = 'postgres://dgjvhtfw:SWpVMDAvmhAetk6ldQh03o36FiLZh81r@rajje.db.elephantsql.com:5432/dgjvhtfw'
+    PG_URI: 'postgres://mzpjiyau:tKfNG8uJH-kBqdfSh150YyVK_Ht4UkR_@rajje.db.elephantsql.com:5432/mzpjiyau'
 }
