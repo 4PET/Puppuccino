@@ -24,7 +24,13 @@ const UserComponent = props => {
                     name="userBio"
                     placeholder={props.userBio}
                     onChange={e => props.updateInfo(e.target.name, e.target.value)} />
-                {/* photo */}
+                <label >Photo:</label>
+                <input
+                    type="text"
+                    name="userPhoto"
+                    placeholder="Enter URL"
+                    onChange={e => props.updateInfo(e.target.name, e.target.value)}
+                />
                 <button type="button" onClick={() => { props.saveUserInfo() }}>Save User Profile</button>
             </form>
         </div>
