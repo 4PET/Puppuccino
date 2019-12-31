@@ -8,14 +8,12 @@ const Signup = props => {
         <input
           type="text"
           name="username"
-          autoComplete="username"
           placeholder="Username"
           onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />
         <input
           type="password"
           name="password"
-          autoComplete="password"
           placeholder="Password"
           onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />

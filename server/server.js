@@ -20,6 +20,9 @@ app.get('/', (req, res) => {
 });
 
 // ROUTERS
+const userRouter = require('./routers/userRouter');
+app.use('/user', userRouter);
+
 
 // 404 NOT FOUND HANDLER
 app.use('*', (req, res) => {
