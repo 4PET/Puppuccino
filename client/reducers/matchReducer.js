@@ -1,7 +1,7 @@
 /**
  * ************************************
  *
- * @module  chatReducer.js
+ * @module  matchReducer.js
  * @author  4PET
  * @date    12/31/2019
  * @description Place to create reducer function for the states used in match feature

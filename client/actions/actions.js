@@ -4,12 +4,12 @@
  * @module  actions.js
  * @author  4PET
  * @date    12/31/2019
- * @description define action types
+ * @description make action creaters
  *
  * ************************************
  */
 
-import * as types from '../constants/actionTypes.js'
+import * as types from './actionTypes.js'
 
 //chatting actions
 export const sendText = (text,sender,receiver) => ({
