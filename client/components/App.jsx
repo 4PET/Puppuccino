@@ -24,24 +24,24 @@ class App extends React.Component {
       userPhoto: '',
 
       //Dog Pofile
-      dogName: '',
-      dogAge: '',
-      dogGender: '',
-      dogBreed: '',
-      dogSize: '',
-      dogTemperament: '',
-      dogNeuteredSpayed: '',
-      dogBio: '',
-      dogPhoto: '',
+      // dogName: '',
+      // dogAge: '',
+      // dogGender: '',
+      // dogBreed: '',
+      // dogSize: '',
+      // dogTemperament: '',
+      // dogNeuteredSpayed: '',
+      // dogBio: '',
+      // dogPhoto: '',
     };
 
-    this.handleLogin = this.handleLogin.bind(this);
+    // this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignout = this.handleSignout.bind(this)
     this.handleToggleSignup = this.handleToggleSignup.bind(this);
     this.updateInfo = this.updateInfo.bind(this)
     this.saveUserInfo = this.saveUserInfo.bind(this)
-    this.saveDogInfo = this.saveDogInfo.bind(this)
+    // this.saveDogInfo = this.saveDogInfo.bind(this)
   }
 
   updateInfo(property, value) {
@@ -51,33 +51,34 @@ class App extends React.Component {
     console.log(this.state)
   }
 
-  handleLogin(e) {
-    e.preventDefault();
-    axios.post('/user/login', { username: this.state.username, password: this.state.password })
-      .then(response => {
-        console.log(response.data)
-        this.setState({
-          isLoggedIn: true,
-          userId: response.data[0]._id,
-          userAge: response.data[0].age,
-          userGender: response.data[0].gender,
-          userBio: response.data[0].bio,
-          userPhoto: response.data[0].photo,
-          dogName: response.data[1].name,
-          dogAge: response.data[1].age,
-          dogGender: response.data[1].gender,
-          dogBreed: response.data[1].breed,
-          dogSize: response.data[1].size,
-          dogTemperament: response.data[1].temperament,
-          dogNeuteredSpayed: response.data[1].neutered_spayed,
-          dogBio: response.data[1].bio,
-          dogPhoto: response.data[1].photo,
-        });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
+  // handleLogin(e) {
+  //   e.preventDefault();
+  //   axios.post('/user/login', { username: this.state.username, password: this.state.password })
+  //     .then(response => {
+  //       console.log(response.data)
+  //       this.setState({
+  //         isLoggedIn: true,
+  //         userId: response.data[0]._id,
+  //         userAge: response.data[0].age,
+  //         userGender: response.data[0].gender,
+  //         userBio: response.data[0].bio,
+  //         userPhoto: response.data[0].photo,
+  //         dogName: response.data[1].name,
+  //         dogAge: response.data[1].age,
+  //         dogGender: response.data[1].gender,
+  //         dogBreed: response.data[1].breed,
+  //         dogSize: response.data[1].size,
+  //         dogTemperament: response.data[1].temperament,
+  //         dogNeuteredSpayed: response.data[1].neutered_spayed,
+  //         dogBio: response.data[1].bio,
+  //         dogPhoto: response.data[1].photo,
+  //       });
+  //       console.log(this.state)
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error);
+  //     });
+  // }
 
   handleSignup(e) {
     console.log("sign up button")
@@ -112,15 +113,15 @@ class App extends React.Component {
       userPhoto: '',
 
       //Dog Pofile
-      dogName: '',
-      dogAge: '',
-      dogGender: '',
-      dogBreed: '',
-      dogSize: '',
-      dogTemperament: '',
-      dogNeuteredSpayed: '',
-      dogBio: '',
-      dogPhoto: '',
+      // dogName: '',
+      // dogAge: '',
+      // dogGender: '',
+      // dogBreed: '',
+      // dogSize: '',
+      // dogTemperament: '',
+      // dogNeuteredSpayed: '',
+      // dogBio: '',
+      // dogPhoto: '',
     })
   }
 
@@ -147,34 +148,33 @@ class App extends React.Component {
     console.log(this.state)
   }
 
-  saveDogInfo() {
-    axios.post('/user/saveDogInfo', {
-      dogName: this.state.dogName,
-      dogAge: this.state.dogAge,
-      dogGender: this.state.dogGender,
-      dogBreed: this.state.dogBreed,
-      dogSize: this.state.dogSize,
-      dogBreed: this.state.dogBreed,
-      dogTemperament: this.state.dogTemperament,
-      userId: this.state.userId,
-      dogNeuteredSpayed: this.state.dogNeuteredSpayed,
-      dogBio: this.state.dogBio,
-      dogPhoto: this.state.dogPhoto
-    })
-      .then(response => {
-        console.log("Dog info saved.");
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    console.log(this.state)
-  }
+  // saveDogInfo() {
+  //   axios.post('/user/saveDogInfo', {
+  //     dogName: this.state.dogName,
+  //     dogAge: this.state.dogAge,
+  //     dogGender: this.state.dogGender,
+  //     dogBreed: this.state.dogBreed,
+  //     dogSize: this.state.dogSize,
+  //     dogBreed: this.state.dogBreed,
+  //     dogTemperament: this.state.dogTemperament,
+  //     userId: this.state.userId,
+  //     dogNeuteredSpayed: this.state.dogNeuteredSpayed,
+  //     dogBio: this.state.dogBio,
+  //     dogPhoto: this.state.dogPhoto
+  //   })
+  //     .then(response => {
+  //       console.log("Dog info saved.");
+  //     })
+  //     .catch(function (error) {
+  //       console.error(error);
+  //     });
+  //   console.log(this.state)
+  // }
 
   render() {
 
     let displayed;
 
-    // SELF NOTE TO TALYA -- CHANGED this.state.isLoggedIn to !this.state.isLoggedIn for building
     if (this.state.isLoggedIn) {
       displayed = (<MyAccount
         handleSignout={this.handleSignout}
@@ -185,15 +185,15 @@ class App extends React.Component {
         userBio={this.state.userBio}
         saveDogInfo={this.saveDogInfo}
         updateInfo={this.updateInfo}
-        dogName={this.state.dogName}
-        dogAge={this.state.dogAge}
-        dogGender={this.state.dogGender}
-        dogBreed={this.state.dogBreed}
-        dogSize={this.state.dogSize}
-        dogTemperament={this.state.dogTemperament}
-        dogNeuteredSpayed={this.state.dogNeuteredSpayed}
-        dogBio={this.state.dogBio}
-        dogPhoto={this.state.dogPhoto}
+      // dogName={this.state.dogName}
+      // dogAge={this.state.dogAge}
+      // dogGender={this.state.dogGender}
+      // dogBreed={this.state.dogBreed}
+      // dogSize={this.state.dogSize}
+      // dogTemperament={this.state.dogTemperament}
+      // dogNeuteredSpayed={this.state.dogNeuteredSpayed}
+      // dogBio={this.state.dogBio}
+      // dogPhoto={this.state.dogPhoto}
       />)
     }
     else if (!this.state.isLoggedIn && !this.state.onSignUpPage) {

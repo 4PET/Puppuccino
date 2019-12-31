@@ -17,17 +17,17 @@ const MyAccount = props => {
                 userBio={props.userBio}
             />
             <DogComponent
-                saveDogInfo={props.saveDogInfo}
-                updateInfo={props.updateInfo}
-                dogName={props.dogName}
-                dogAge={props.dogAge}
-                dogGender={props.dogGender}
-                dogBreed={props.dogBreed}
-                dogSize={props.dogSize}
-                dogTemperament={props.dogTemperament}
-                dogNeuteredSpayed={props.dogNeuteredSpayed}
-                dogBio={props.dogBio}
-                dogPhoto={props.dogPhoto}
+            // saveDogInfo={props.saveDogInfo}
+            // updateInfo={props.updateInfo}
+            // dogName={props.dogName}
+            // dogAge={props.dogAge}
+            // dogGender={props.dogGender}
+            // dogBreed={props.dogBreed}
+            // dogSize={props.dogSize}
+            // dogTemperament={props.dogTemperament}
+            // dogNeuteredSpayed={props.dogNeuteredSpayed}
+            // dogBio={props.dogBio}
+            // dogPhoto={props.dogPhoto}
             />
         </div>
     )

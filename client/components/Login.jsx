@@ -1,9 +1,21 @@
 import React from 'react';
+import { connect } from "react-redux"
+import * as actions from "../actions/actions.js"
+
+const mapStateToProps = state => ({
+
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateInfo: (name, value) => dispatch(actions.updateInfo(name, value)),
+  handleLogin: (e) => dispatch(actions.handleLogin(e))
+})
+
 
 const Login = (props) => {
   return (
     <div id="loginContainer" className="container">
-      <form id="loginForm">
+      <div id="loginForm">
         <h2>Log In</h2>
         <input
           type="text"
@@ -20,12 +32,12 @@ const Login = (props) => {
           onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />
         <button onClick={props.handleLogin}>Log In</button>
-        <div className="toggleSignup" onClick={props.handleToggleSignup}>
+        {/* <div className="toggleSignup" onClick={props.handleToggleSignup}>
           Click to Sign Up
-        </div>
-      </form>
+        </div> */}
+      </div>
     </div >
   );
 }
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,4 +1,24 @@
 import React from "react";
+import { connect } from "react-redux"
+import * as actions from "../actions/actions.js"
+
+const mapStateToProps = state => ({
+    dogName: state.profile.dogName,
+    dogAge: state.profile.dogAge,
+    dogGender: state.profile.dogGender,
+    dogBreed: state.profile.dogBreed,
+    dogSize: state.profile.dogSize,
+    dogTemperament: state.profile.dogTemperament,
+    dogNeuteredSpayed: state.profile.dogNeuteredSpayed,
+    dogBio: state.profile.dogBio,
+    dogPhoto: state.profile.dogPhoto,
+})
+
+const mapDispatchToProps = dispatch => ({
+    updateInfo: (name, value) => dispatch(actions.updateInfo(name, value)),
+    saveDogInfo: () => dispatch(actions.saveDogInfo())
+})
+
 
 const DogComponent = props => {
     return (
@@ -95,4 +115,5 @@ const DogComponent = props => {
     )
 }
 
-export default DogComponent;
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogComponent);

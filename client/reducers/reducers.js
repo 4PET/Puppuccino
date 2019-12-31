@@ -14,7 +14,7 @@ import chatReducer from './chatReducer.js'
 import profileReducer from './profileReducer.js'
 import matchReducer from './matchReducer.js'
 
-//combine reducers 
+//combine reducers
 const reducers = combineReducers({
   chat: chatReducer,
   match: matchReducer,
