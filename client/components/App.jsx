@@ -22,53 +22,9 @@ class App extends React.Component {
     this.handleToggleSignup = this.handleToggleSignup.bind(this);
 
   }
-
-  updateInfo(property, value) {
-    let updateObj = {};
-    updateObj[property] = value;
-    this.setState(updateObj);
+  helloFunction(){
+    HIHIHI;
   }
-
-  handleLogin(e) {
-    e.preventDefault();
-    axios.post('/user/login', { username: this.state.username, password: this.state.password })
-      .then(response => {
-        this.setState({ isLoggedIn: true });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
-
-  handleSignup(e) {
-    e.preventDefault();
-    axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
-      .then(() => {
-        this.setState({
-          isLoggedIn: true,
-          onSignUpPage: false,
-        });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }
-
-  handleSignout() {
-    this.setState({
-      username: '',
-      password: '',
-      isLoggedIn: false,
-      onSignUpPage: false,
-    })
-  }
-
-  handleToggleSignup() {
-    this.setState(prevState => ({
-      onSignUpPage: !prevState.onSignUpPage
-    }));
-  }
-
   render() {
 
     let displayed;
