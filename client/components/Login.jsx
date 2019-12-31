@@ -10,15 +10,19 @@ const Login = (props) => {
           name="username"
           autoComplete="username"
           placeholder="Username"
+          onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />
         <input
           type="password"
           name="password"
           autoComplete="password"
           placeholder="Password"
+          onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />
-        <button onClick={}>Log In</button>
-        Sign Up
+        <button onClick={props.handleLogin}>Log In</button>
+        <div className="toggleSignup" onClick={props.handleToggleSignup}>
+          Click to Sign Up
+        </div>
       </form>
     </div >
   );
