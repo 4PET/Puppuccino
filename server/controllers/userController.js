@@ -100,7 +100,7 @@ userController.getOtherDogs = async (req, res, next) => {
         `;
         const params = [owner_id];
         const result = await db.query(text, params);
-        res.locals.dogList = result.rows[0];
+        res.locals.dogList = result.rows;
         console.log(res.locals.dogList)
         next();
     }
