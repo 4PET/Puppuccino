@@ -19,6 +19,8 @@ const matchReducer = (state=initialState,action) => {
   switch(action.types){
     case types.LIKE_DOG:
       break;
+    default: 
+    return state  
   }
 }
 
