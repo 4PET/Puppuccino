@@ -49,6 +49,7 @@ class App extends React.Component {
     this.updateInfo = this.updateInfo.bind(this)
     this.saveUserInfo = this.saveUserInfo.bind(this)
     this.saveDogInfo = this.saveDogInfo.bind(this)
+    this.fetchProfile = this.fetchProfile.bind(this)
   }
 
   updateInfo(property, value) {
@@ -62,7 +63,7 @@ class App extends React.Component {
     e.preventDefault();
     axios.post('/user/login', { username: this.state.username, password: this.state.password })
       .then(response => {
-        console.log(response.data)
+        console.log('this is data', response);
         this.setState({
           isLoggedIn: true,
           userId: response.data[0]._id,
@@ -82,6 +83,7 @@ class App extends React.Component {
           // dogPhoto: response.data[1].photo,
         });
       })
+      .then(this.fetchProfile)
       .catch(function (error) {
         console.error(error);
       });
@@ -179,18 +181,39 @@ class App extends React.Component {
     console.log(this.state)
   }
 
-  // componentDidMount() {
-    fetchProfile = (e) => {
-      e.preventDefault();
-      fetch('/user/getDogInfo')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    }
+  // fetchProfile = (e) => {
+  //   e.preventDefault();
+  //   console.log('this is fetchProfile')
+  //   console.log(userId)
+  //   axios.get('/user/getOtherDogs', {
+  //     params: {
+  //       userId: this.state.userId
+  //     }
+  //   })
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   .catch(function (error) {
+  //     console.error(error);
+  //   });
   // }
+
+  fetchProfile() {
+    console.log('this is fetchProfile')
+    console.log(this.state.userId)
+    axios.get('/user/getOtherDogs', {
+      params: {
+        userId: this.state.userId
+      }
+    })
+    .then(res => {
+      console.log("this is fetch dog", res)
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  }
+
 
   handleClickMyAccount = () => {
     console.log('clicked')
@@ -230,7 +253,6 @@ class App extends React.Component {
         updateInfo={this.updateInfo}
         handleLogin={this.handleLogin}
         handleToggleSignup={this.handleToggleSignup}
-        fetchProfile={this.fetchProfile}
       />)
     }
 
@@ -239,7 +261,6 @@ class App extends React.Component {
         updateInfo={this.updateInfo}
         handleSignup={this.handleSignup}
         handleToggleSignup={this.handleToggleSignup}
-        fetchProfile={this.fetchProfile}
       />)
     }
 
