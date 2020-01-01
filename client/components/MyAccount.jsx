@@ -3,10 +3,12 @@ import axios from "axios";
 import Signout from "./Signout.jsx"
 import UserComponent from "./UserComponent.jsx"
 import DogComponent from "./DogComponent.jsx"
+import BackToMainBtn from './BackToMainBtn'
 
 const MyAccount = props => {
     return (
         <div>
+            <BackToMainBtn handleBackToMain={props.handleBackToMain} />
             <Signout handleSignout={props.handleSignout} />
             <h1>My Account</h1>
             <UserComponent

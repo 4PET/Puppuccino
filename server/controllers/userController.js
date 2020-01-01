@@ -50,9 +50,9 @@ userController.verifyUser = async (req, res, next) => {
     const { username, password } = req.body;
     try {
         const text = `
-      SELECT * FROM users
-      WHERE username=$1 AND password=$2
-    `;
+            SELECT * FROM users
+            WHERE username=$1 AND password=$2
+        `;
         const params = [username, password];
         const result = await db.query(text, params);
         res.locals.userData[0] = result.rows[0];
@@ -67,6 +67,27 @@ userController.verifyUser = async (req, res, next) => {
 }
 
 userController.getDogInfo = async (req, res, next) => {
+    const owner_id = res.locals.userData[0]._id;
+    try {
+        const text = `
+        SELECT * FROM dogs
+        WHERE owner_id=$1
+        `;
+        const params = [owner_id];
+        const result = await db.query(text, params);
+        res.locals.userData[1] = result.rows[0];
+        console.log(res.locals.userData)
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.verifyUser: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
+        });
+    }
+}
+
+userController.getOtherDogs = async (req, res, next) => {
     const owner_id = res.locals.userData[0]._id;
     try {
         const text = `
