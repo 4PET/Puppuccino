@@ -18,6 +18,13 @@ const UserComponent = props => {
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                 </select>
+                <label >Location:</label>
+                <input
+                    type="text"
+                    name="userLocation"
+                    placeholder={props.userLocation}
+                    onChange={e => props.updateInfo(e.target.name, e.target.value)}
+                />
                 <label >Bio:</label>
                 <textarea
                     type="text"
@@ -31,6 +38,7 @@ const UserComponent = props => {
                     placeholder="Enter URL"
                     onChange={e => props.updateInfo(e.target.name, e.target.value)}
                 />
+
                 <button type="button" onClick={() => { props.saveUserInfo() }}>Save User Profile</button>
             </form>
         </div>
