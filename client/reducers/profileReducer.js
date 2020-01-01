@@ -16,10 +16,12 @@ const initialState = {
   age: 0,
 }
 
-const profileReducer = (state=initialState,action) => {
-  switch(action.types){
+const profileReducer = (state = initialState, action) => {
+  switch (action.types) {
     case types.UPDATE_PROFILE:
       break;
+    default:
+      return state;
   }
 }
 

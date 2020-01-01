@@ -88,7 +88,13 @@ const DogComponent = props => {
                     name="dogBio"
                     placeholder={props.dogBio}
                     onChange={e => props.updateInfo(e.target.name, e.target.value)} />
-                {/* photo */}
+                <label >Photo:</label>
+                <input
+                    type="text"
+                    name="dogPhoto"
+                    placeholder="Enter URL"
+                    onChange={e => props.updateInfo(e.target.name, e.target.value)}
+                />
                 <button type="button" onClick={() => { props.saveDogInfo() }}>Save Dog Profile</button>
             </form>
         </div>

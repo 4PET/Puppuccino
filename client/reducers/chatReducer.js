@@ -15,10 +15,12 @@ const initialState = {
   chatList: [],
 }
 
-const chatReducer = (state=initialState,action) => {
-  switch(action.types){
+const chatReducer = (state = initialState, action) => {
+  switch (action.types) {
     case types.SEND_TEXT:
       break;
+    default:
+      return state;
   }
 }
 
