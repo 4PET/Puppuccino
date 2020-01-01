@@ -18,4 +18,8 @@ router.post('/saveDogInfo', userController.saveDogInfo, (req, res) => {
     res.sendStatus(200);
 });
 
+router.get('/getOtherDOgs', userController.getOtherDogs, (req, res) => {
+    res.sendStatus(200);
+})
+
 module.exports = router;
