@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import axios from "axios";
-import Login from './Login.jsx';
-import Signup from "./Signup.jsx";
-import Signout from "./Signout.jsx";
-import MyAccount from "./MyAccount.jsx"
-import BioBtn from "./Match/BioBtn"
-import LikeBtn from "./Match/LikeBtn"
-import PassBtn from "./Match/PassBtn"
-import Profile from "./Match/Profile";
-import Navigation from './Navigation/Navigation'
+import Login from '../components/Login.jsx';
+import Signup from "../components/Signup.jsx";
+import Signout from "../components/Signout.jsx";
+import MyAccount from "../components/MyAccount.jsx"
+import BioBtn from "../components/Match/BioBtn"
+import LikeBtn from "../components/Match/LikeBtn"
+import PassBtn from "../components/Match/PassBtn"
+import Profile from "../components/Match/Profile";
+import Navigation from '../components/Navigation/Navigation'
 
 class App extends React.Component {
   constructor(props) {
