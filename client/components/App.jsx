@@ -39,7 +39,10 @@ class App extends React.Component {
       dogTemperament: '',
       dogNeuteredSpayed: '',
       dogBio: '',
-      dogPhoto: '',
+      dogList: [],
+      currentPhoto: 0, 
+      pass: false,
+      like: false
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -63,7 +66,6 @@ class App extends React.Component {
     e.preventDefault();
     axios.post('/user/login', { username: this.state.username, password: this.state.password })
       .then(response => {
-        console.log('this is data', response);
         this.setState({
           isLoggedIn: true,
           userId: response.data[0]._id,
@@ -199,19 +201,29 @@ class App extends React.Component {
   // }
 
   fetchProfile() {
-    console.log('this is fetchProfile')
-    console.log(this.state.userId)
     axios.get('/user/getOtherDogs', {
       params: {
         userId: this.state.userId
       }
     })
     .then(res => {
-      console.log("this is fetch dog", res)
+      this.setState(() => ({
+        dogList: res.data,
+        // dogPhoto: res.data[this.state.currentPhoto].photo
+      }))
+      console.log(res.data)
     })
     .catch(function (error) {
       console.error(error);
     });
+  }
+
+  handlePass = () => {
+    this.setState(prevState => ({
+      currentPhoto: prevState.currentPhoto += 1,
+      dogPhoto: prevState.dogList[this.state.currentPhoto]
+    }));
+    console.log(this.state.currentPhoto)
   }
 
 
@@ -238,9 +250,9 @@ class App extends React.Component {
       displayed = (
         <React.Fragment>
           <Navigation signOut={this.handleSignout} handleClickMyAccount={this.handleClickMyAccount} />
-          <Profile fetchProfile={this.fetchProfile} />
+          <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
           <div>
-            <PassBtn passButton={this.passButton} />
+            <PassBtn handlePass={this.handlePass} />
             <LikeBtn likeButton={this.likeButton} />          
           </div>
           <BioBtn />
