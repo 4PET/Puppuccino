@@ -66,6 +66,27 @@ userController.verifyUser = async (req, res, next) => {
     }
 }
 
+userController.getUserInfo = async (req, res, next) => {
+    res.locals.userData = [];
+    const { userId } = req.body;
+    try {
+        const text = `
+            SELECT * FROM users
+            WHERE _id=$1
+        `;
+        const params = [userId];
+        const result = await db.query(text, params);
+        res.locals.userData[0] = result.rows[0];
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.verifyUser: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
+        });
+    }
+}
+
 userController.getDogInfo = async (req, res, next) => {
     const owner_id = res.locals.userData[0]._id;
     try {
