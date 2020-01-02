@@ -1,9 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Signout from "../components/Signout.jsx";
 import UserComponent from "../components/UserComponent.jsx";
 import DogComponent from "../components/DogComponent.jsx";
-import Navigation from '../components/Navigation/Navigation';
 
 class MyAccount extends React.Component {
     constructor(props) {

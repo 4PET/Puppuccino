@@ -10,13 +10,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       pageToRender: "login",
-      userId: -1
+      userId: -1,
+      dogId: -1,
     };
   }
 
-  toMatch = (id = this.state.userId) => {
+  toMatch = (userId = this.state.userId, dogId = this.state.dogId) => {
     this.setState({
-      userId: id,
+      userId: userId,
+      dogId: dogId,
       pageToRender: "match",
     });
   }
@@ -49,7 +51,7 @@ class App extends React.Component {
 
     else if(this.state.pageToRender === "match"){
       displayed = (
-        <MatchContainer userId = {this.state.userId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
+        <MatchContainer userId = {this.state.userId} dogId= {this.state.dogId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
       );
     }
     else if(this.state.pageToRender === "myAccount") {

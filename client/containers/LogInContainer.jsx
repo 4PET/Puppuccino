@@ -38,7 +38,6 @@ class LoginContainer extends React.Component {
   }
 
   handleSignup = (e) => {
-    console.log("sign up button")
     e.preventDefault();
     axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
       .then(() => {

@@ -12,7 +12,6 @@
 import React from 'react';
 import ChatBox from '../components/ChatBox.jsx'
 import MessageContainer from './MessageContainer.jsx'
-import Navigation from '../components/Navigation/Navigation'
 import axios from 'axios'
 
 class ChatContainer extends React.Component {
@@ -85,12 +84,23 @@ class ChatContainer extends React.Component {
         />)
       }
     }
+
+    let noMatch;
+    if (this.state.chatList.length === 0) {
+      noMatch = (
+        <div>You have no Match! Go discover your potential match!</div>
+      )
+    }
+
     return (
       <div>
-        {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
+        {display}
+        {noMatch}
       </div>
     )
   }
 }
+
+// {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
 
 export default ChatContainer;
