@@ -32,22 +32,21 @@ chatController.getChats = async (req, res, next) => {
   }
 }
 
-chatController.postChat = async (req, res, next) => {
-  const { senderId, receiverId, content } = req.body;
+chatController.postMessage = async (req, res, next) => {
+  const { sender, receiver, newMessage } = req.body;
   try {
     const text = `
       INSERT INTO chats (sender_id, receiver_id, content)
       VALUES ($1, $2, $3)
     `;
-    const params = [senderId, receiverId, content];
+    const params = [sender, receiver, newMessage];
     const result = await db.query(text, params);
-    res.locals.chats = result.data;
     return next();
   }
   catch (err) {
     return next({
-      log: `chatController.postChat: ERROR: ${err}`,
-      message: { err: 'Error occurred in chatController.postChat. Check server logs for more details.' }
+      log: `chatController.postMessage: ERROR: ${err}`,
+      message: { err: 'Error occurred in chatController.postMessage. Check server logs for more details.' }
     });
   }
 }
