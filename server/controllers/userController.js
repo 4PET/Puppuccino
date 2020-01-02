@@ -66,6 +66,28 @@ userController.verifyUser = async (req, res, next) => {
     }
 }
 
+userController.createNewDog = async (req, res, next) => {
+    const { dogName, dogAge, dogGender, dogBreed, dogSize, dogTemperament, userId, dogNeuteredSpayed, dogBio, dogPhoto } = req.body;
+    console.log( dogName, dogAge, dogGender, dogBreed, dogSize, dogTemperament, userId, dogNeuteredSpayed, dogBio, dogPhoto);
+    try {
+        const text = `
+            INSERT INTO dogs (name, age, gender, breed, size, temperament, owner_id, neutered_spayed, bio, photo)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            RETURNING *
+        `;
+        const params = [dogName, dogAge, dogGender, dogBreed, dogSize, dogTemperament, userId, dogNeuteredSpayed, dogBio, dogPhoto];
+        const result = await db.query(text, params);
+        res.locals.userData = result.rows[0];
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.createNewDog: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.createNewDog. Check server logs for more details.' }
+        });
+    }
+}
+
 userController.getUserInfo = async (req, res, next) => {
     res.locals.userData = [];
     const { userId } = req.body;
@@ -158,10 +180,10 @@ userController.saveDogInfo = async (req, res, next) => {
     const { dogName, dogAge, dogGender, dogBreed, dogSize, dogTemperament, userId, dogNeuteredSpayed, dogBio, dogPhoto } = req.body;
     try {
         const text = `
-      INSERT INTO dogs (name, age, gender, breed, size, temperament, owner_id, neutered_spayed, bio, photo)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-      RETURNING *
-    `;
+            UPDATE dogs 
+            SET name=$1, age=$2, gender=$3, breed=$4, size=$5, temperament=$6, owner_id=$7, neutered_spayed=$8, bio=$9, photo=$10
+            RETURNING *
+        `;
         const params = [dogName, dogAge, dogGender, dogBreed, dogSize, dogTemperament, userId, dogNeuteredSpayed, dogBio, dogPhoto];
         const result = await db.query(text, params);
         // res.locals.dogData = result.rows[0];

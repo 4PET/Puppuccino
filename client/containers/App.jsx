@@ -58,7 +58,7 @@ class App extends React.Component {
       );
     }
     else if(this.state.pageToRender === "myAccount") {
-      displayed = (<MyAccount userId = {this.state.userId} dogId={this.state.dogId}/>);
+      displayed = (<MyAccount userId = {this.state.userId} dogId={this.state.dogId} toMatch={this.toMatch}/>);
     }
     else if(this.state.pageToRender === "chat"){
       displayed = (<ChatContainer userId = {this.state.userId} dogId={this.state.dogId} />);

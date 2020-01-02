@@ -15,6 +15,10 @@ router.post('/createNewUser', userController.hashPassword, userController.create
     res.status(200).json(res.locals.user);
 });
 
+router.post('/createNewDog', userController.createNewDog, (req, res) => {
+    res.sendStatus(200);
+});
+
 router.post('/saveUserInfo', userController.saveUserInfo, (req, res) => {
     res.sendStatus(200);
 });
