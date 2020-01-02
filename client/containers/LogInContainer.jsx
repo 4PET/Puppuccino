@@ -29,11 +29,12 @@ class LoginContainer extends React.Component {
     e.preventDefault();
     axios.post('/user/verify', { username: this.state.username, password: this.state.password })
       .then(response => {
+        console.log('this is sing in response', response);
         if (response.data[0] && response.data[1]) {
-          this.props.toMatch(response.data[0]._id);
+          this.props.toMatch(response.data[0]._id,response.data[1]._id);
         }
         else if (response.data[0]) {
-          this.props.toMyAccount();
+          this.props.toMyAccount(response.data[0]._id);
         }
         else {
           alert('password wrong!');
@@ -45,8 +46,8 @@ class LoginContainer extends React.Component {
     console.log("sign up button")
     e.preventDefault();
     axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
-      .then(() => {
-        this.props.toMatch(response.data._id);
+      .then((response) => {
+        this.props.toMyAccount(response.data._id);
         this.setState({
           onSignUpPage: false,
         });

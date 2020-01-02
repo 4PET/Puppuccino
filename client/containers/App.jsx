@@ -9,30 +9,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       pageToRender: "login",
-      userId: 0,
+      userId: -1,
+      dogId: -1
     };
   }
 
-  toMatch = (id = this.state.userId) => {
+  toMatch = (userId, dogId) => {
     this.setState({
-      userId: id,
       pageToRender: "match",
+      userId,
+      dogId,
     });
   }
 
   signOut = () => {
     this.setState({
       pageToRender: "login",
+      userId: -1,
+      dogId: -1
     })
   }
 
-  toMyAccount = () => {
+  toMyAccount = (userId) => {
     this.setState({
       pageToRender: "myAccount",
+      userId,
     });
   }
 
   toChat = () => {
+    console.log('this is to Chat', this.state.dogId);
     this.setState({
       pageToRender: "chat",
     });
@@ -41,18 +47,18 @@ class App extends React.Component {
   render() {
     let displayed;
     if (this.state.pageToRender === "login") {
-      displayed = (<LoginContainer toMatch={this.toMatch} toMyAccount={this.toMyAccount} />);
+      displayed = (<LoginContainer toMatch={this.toMatch} toMyAccount={this.toMyAccount}/>);
     }
     else if(this.state.pageToRender === "match"){
       displayed = (
-        <MatchContainer userId = {this.state.userId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
+        <MatchContainer userId = {this.state.userId} dogId={this.state.dogId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
       );
     }
     else if(this.state.pageToRender === "myAccount") {
-      displayed = (<MyAccount userId = {this.state.userId} signOut={this.signOut} toMatch={this.toMatch} toMyAccount={this.toMyAccount} toChat={this.toChat}/>);
+      displayed = (<MyAccount userId = {this.state.userId} dogId={this.state.dogId} signOut={this.signOut} toMatch={this.toMatch} toMyAccount={this.toMyAccount} toChat={this.toChat}/>);
     }
     else if(this.state.pageToRender === "chat"){
-      displayed = (<ChatContainer userId = {this.state.userId} toMyAccount={this.toMyAccount} toMatch={this.toMatch} signOut={this.signOut} />);
+      displayed = (<ChatContainer userId = {this.state.userId} dogId={this.state.dogId} toMyAccount={this.toMyAccount} toMatch={this.toMatch} signOut={this.signOut} />);
     }
     return (
       <React.Fragment>
