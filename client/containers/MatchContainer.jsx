@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
-import BioBtn from "../components/Match/BioBtn"
-import LikeBtn from "../components/Match/LikeBtn"
+import React from "react";
+import axios from 'axios';
+import MatchBtn from "../components/Match/MatchBtn"
 import PassBtn from "../components/Match/PassBtn"
 import Profile from "../components/Match/Profile";
 import Navigation from '../components/Navigation/Navigation'
@@ -14,9 +14,10 @@ class MatchContainer extends React.Component {
       pass: false,
       like: false
     };
+    this.fetchProfile = this.fetchProfile.bind(this);
   }
 
-  componentDIdMount() {
+  componentDidMount() {
     console.log('fetching data');
     this.fetchProfile();
   }
@@ -30,6 +31,7 @@ class MatchContainer extends React.Component {
   }
 
   fetchProfile() {
+    console.log('im in fetchProfile');
     axios.get('/user/getOtherDogs', {
       params: {
         userId: this.props.userId
@@ -38,7 +40,6 @@ class MatchContainer extends React.Component {
     .then(res => {
       this.setState(() => ({
         dogList: res.data,
-        // dogPhoto: res.data[this.state.currentPhoto].photo
       }))
     })
     .catch(function (error) {
@@ -48,16 +49,15 @@ class MatchContainer extends React.Component {
 
 
   render() {
-    console.log(this.state);
+    console.log('this is match state', this.state);
     return (
       <>
-        <Navigation signOut={this.props.toLogin} handleClickMyAccount={this.props.toMyAccount} />
+        <Navigation signOut={this.props.toLogin} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat}/>
         <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
         <div>
           <PassBtn handlePass={this.handlePass} />
-          <LikeBtn likeButton={this.likeButton} />          
+          <MatchBtn likeButton={this.likeButton} />          
         </div>
-        <BioBtn />
       </>
     )
   }

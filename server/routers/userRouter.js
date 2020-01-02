@@ -27,4 +27,8 @@ router.get('/getOtherDogs', userController.getOtherDogs, (req, res) => {
     res.status(200).json(res.locals.dogList);
 })
 
+router.post('/matchDogs', userController.checkMatch, userController.matchDogs, (req, res) => {
+    res.sendStatus(200);
+})
+
 module.exports = router;

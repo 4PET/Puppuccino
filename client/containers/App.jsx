@@ -2,6 +2,7 @@ import React from "react";
 import MyAccount from "./MyAccount.jsx";
 import MatchContainer from './MatchContainer.jsx';
 import LoginContainer from "./LogInContainer.jsx";
+import ChatContainer from "./ChatContainer.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -33,17 +34,26 @@ class App extends React.Component {
       pageToRender: "myAccount",
     });
   }
+  
+  toChat = () => {
+    this.setState({
+      pageToRender: "chat",
+    });
+  }
 
   render() {
     let displayed;
     if(this.state.pageToRender === "login"){
-      displayed = (<LoginContainer toMatch={this.toMatch}/>)
+      displayed = (<LoginContainer toMatch={this.toMatch}/>);
     }
     else if(this.state.pageToRender === "match"){
-      displayed = (<MatchContainer userId = {this.state.userId} toLogin={this.toLogin} toMyAccount={this.toMyAccount}/>);
+      displayed = (<MatchContainer userId = {this.state.userId} toLogin={this.toLogin} toMyAccount={this.toMyAccount} toChat={this.toChat}/>);
     }
     else if(this.state.pageToRender === "myAccount") {
-      displayed = (<MyAccount userId = {this.state.userId} toLogin={this.toLogin} toMatch={this.toMatch}/>)
+      displayed = (<MyAccount userId = {this.state.userId} toLogin={this.toLogin} toMatch={this.toMatch}/>);
+    }
+    else if(this.state.pageToRender === "chat"){
+      displayed = (<ChatContainer userId = {this.state.userId}/>);
     }
     return (
       <React.Fragment>
