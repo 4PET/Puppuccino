@@ -153,4 +153,31 @@ userController.saveDogInfo = async (req, res, next) => {
     }
 }
 
+userController.matchDogs = async (req, res, next) => {
+    const { userId } = req.body;
+    
+    try {
+        const text = `
+            INSERT INTO matches (dog1_id, dog2_id, match_date)
+            VALUES ($1, $2)
+            RETURNING *
+        `;
+        const params = [userId];
+        const result = await db.query(text, params);
+        // res.locals.dogData = result.rows[0];
+        next();
+    }
+
+    catch (err) {
+        next({
+            log: `userController.matchDogs: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.matchDogs. Check server logs for more details.' }
+        });
+    }
+}
+
+userController.checkMatch = async (req, res, next) => {
+
+}
+
 module.exports = userController
