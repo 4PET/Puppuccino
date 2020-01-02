@@ -12,14 +12,14 @@ const db = require('../models/userModel');
 const chatController = {};
 
 chatController.getChats = async (req, res, next) => {
-  const { userId } = req.query;
+  const { dogId } = req.query;
   try {
     const text = `
       SELECT c.*, d.name as sendername, d2.name as receivername 
       FROM chats c JOIN dogs d on c.sender_id=d._id JOIN dogs d2 on c.receiver_id=d2._id 
       WHERE sender_id=$1 OR receiver_id=$1 ORDER BY "timeStamp"
     `;
-    const params = [userId];
+    const params = [dogId];
     const result = await db.query(text, params);
     res.locals.chats = result.rows;
     return next();

@@ -31,15 +31,15 @@ class ChatContainer extends React.Component {
 
   fetchChats = () => {
     axios.get('/chat', {
-      params:{ userId: this.props.userId }
+      params:{ dogId: this.props.dogId }
     })
     .then(res => {
       const cache = new Set();
       let chatList = [];
       let allChats = {};
       for(let i = res.data.length - 1; i >= 0; i--){
-        let opponentId = res.data[i].sender_id == this.props.userId ? res.data[i].receiver_id : res.data[i].sender_id;
-        let opponentName = res.data[i].sender_id == this.props.userId ? res.data[i].receivername : res.data[i].sendername;
+        let opponentId = res.data[i].sender_id == this.props.dogId ? res.data[i].receiver_id : res.data[i].sender_id;
+        let opponentName = res.data[i].sender_id == this.props.dogId ? res.data[i].receivername : res.data[i].sendername;
         if(!cache.has(opponentId)){
           cache.add(opponentId);
           chatList.push({
@@ -58,11 +58,12 @@ class ChatContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.dogId, this.state.chatList)
     const display = [];
     if(this.state.messageWith > 0){
       display.push(<MessageContainer 
         key = {0}
-        userId = {this.props.userId}
+        dogId = {this.props.dogId}
         opponentId = {this.state.messageWith}
         messages = {this.state.allChats[this.state.messageWith]}
         goBackFunction = {() =>{

@@ -81,6 +81,10 @@ class MyAccount extends React.Component {
     getUserInfo = () => {
         axios.post('/user/login', { userId: this.props.userId })
             .then(response => {
+                console.log('this is response for first sign in', response, this.props.userId, this.props.dogId);
+                if(response.data[0].age === null){
+                    
+                }
                 this.setState({
                     isLoggedIn: true,
                     userId: response.data[0]._id,
@@ -100,7 +104,6 @@ class MyAccount extends React.Component {
                     dogPhoto: response.data[1].photo,
                 });
             })
-            .then(this.fetchProfile)
             .catch(function (error) {
                 console.error(error);
             });
