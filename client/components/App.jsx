@@ -4,8 +4,7 @@ import Login from './Login.jsx';
 import Signup from "./Signup.jsx";
 import Signout from "./Signout.jsx";
 import MyAccount from "./MyAccount.jsx"
-import BioBtn from "./Match/BioBtn"
-import LikeBtn from "./Match/LikeBtn"
+import MatchBtn from "./Match/MatchBtn"
 import PassBtn from "./Match/PassBtn"
 import Profile from "./Match/Profile";
 import Navigation from './Navigation/Navigation'
@@ -42,7 +41,7 @@ class App extends React.Component {
       dogList: [],
       currentPhoto: 0, 
       pass: false,
-      like: false
+      match: false,      
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -253,9 +252,8 @@ class App extends React.Component {
           <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
           <div>
             <PassBtn handlePass={this.handlePass} />
-            <LikeBtn likeButton={this.likeButton} />          
+            <MatchBtn likeButton={this.likeButton} />          
           </div>
-          <BioBtn />
         </React.Fragment>
       )
     }
