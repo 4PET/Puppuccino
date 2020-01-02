@@ -1,73 +1,8 @@
 #root {
-    width: 40vw;
+    width: 40%;
     margin: 0 auto;
     font-family: Roboto;
 }
-
-#dogProfileForm, #userProfileForm label, input, select, textarea, button {
-    margin-top: 10px;
-    height: 160%;
-}
-
-//SIGN UP AND SIGN IN
-#loginContainer,
-#signupContainer {
-  margin-top: 30vh;
-  background-color: rgba(212, 222, 235, 0.493);
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-#loginForm,
-#signupForm, {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 75%;
-}
-
-.loginInput{
-  margin-top: 10px;
-  // border-radius: 5px;
-  height: 20px;
-}
-
-#loginForm ::placeholder{
-  color: #3897f0;
-  font-size: 1.3em;
-}
-
-#signupForm ::placeholder{
-  color: #3897f0;
-  font-size: 1.3em;
-}
-
-.loginButtons {
-  padding: 5px;
-  border: 1px solid transparent;
-  background-color: #3897f0;
-  color: white;
-  border-radius: 5px;
-  margin-top: 10px;
-  font-size: 0.9em;
-}
-
-#secondaryBtn {
-  background-color: white;
-  color:#3897f0;
-  border: 1px solid #3897f0;
-}
-
-.toggleSignup {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  // width: 75%;
-}
-//END OF SIGN UP AND SIGN IN
-
 #dogProfileForm, #userProfileForm {
     display: flex;
     flex-direction: column;
@@ -75,9 +10,15 @@
     padding: 30px;
 }
 
+#dogProfileForm, #userProfileForm label, input, select, textarea, button {
+    margin-top: 10px;
+    height: 160%;
+}
+
 $sent-msg-bg: rgb(219, 231, 222);
 $received-msg-bg: #D3CDEB;
 $chat-bg-color: #F9F9F9;
+
 
 #chatroom {
 	overflow: auto;
