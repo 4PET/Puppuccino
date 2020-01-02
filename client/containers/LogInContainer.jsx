@@ -12,19 +12,15 @@ class LoginContainer extends React.Component {
       userId: '',
       onSignUpPage: false,
     };
-    this.updateInfo = this.updateInfo.bind(this);
-    this.handleSignin = this.handleSignin.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
-    this.toggleSignup = this.toggleSignup.bind(this);
   }
 
-  updateInfo(property, value) {
+  updateInfo = (property, value) => {
     let updateObj = {};
     updateObj[property] = value;
     this.setState(updateObj);
   }
 
-  handleSignin(e) {
+  handleSignin = (e) => {
     console.log('clicked', { username: this.state.username, password: this.state.password });
     e.preventDefault();
     axios.post('/user/verify', { username: this.state.username, password: this.state.password })
@@ -42,8 +38,7 @@ class LoginContainer extends React.Component {
       })
   }
 
-  handleSignup(e) {
-    console.log("sign up button")
+  handleSignup = (e) => {
     e.preventDefault();
     axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
       .then((response) => {
@@ -57,7 +52,7 @@ class LoginContainer extends React.Component {
       });
   }
 
-  toggleSignup() {
+  toggleSignup = () => {
     this.setState(prevState => ({
       onSignUpPage: !prevState.onSignUpPage
     }));

@@ -1,9 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import MatchBtn from "../components/Match/MatchBtn"
-import PassBtn from "../components/Match/PassBtn"
 import Profile from "../components/Match/Profile";
-import Navigation from '../components/Navigation/Navigation'
 
 class MatchContainer extends React.Component {
   constructor(props) {
@@ -12,13 +9,12 @@ class MatchContainer extends React.Component {
       dogList: [],
       currentPhoto: 0, 
       pass: false,
-      like: false
+      dog1_id: null,
+      dog2_id: null
     };
-    this.fetchProfile = this.fetchProfile.bind(this);
   }
 
   componentDidMount() {
-    console.log('fetching data');
     this.fetchProfile();
   }
 
@@ -27,43 +23,48 @@ class MatchContainer extends React.Component {
       currentPhoto: prevState.currentPhoto += 1,
       dogPhoto: prevState.dogList[this.state.currentPhoto]
     }));
-    console.log(this.state.currentPhoto)
   }
 
-  fetchProfile() {
-    console.log('im in fetchProfile');
-    axios.get('/user/getOtherDogs', {
-      params: {
-        userId: this.props.userId
-      }
-    })
-    .then(res => {
-      this.setState(() => ({
-        dogList: res.data,
-      }))
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  handleMatch = (e) => {
+    e.preventDefault();
+    console.log('here', {dog1_id: this.props.dogId})
+    console.log('here2', {dog2_id: this.state.dogList[this.state.currentPhoto]._id})
+    // axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
+    //   .then(() => {
+    //     this.props.toMatch(response.data._id);
+    //     this.setState({
+    //       onSignUpPage: false,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
+  }
+
+  fetchProfile = async () => {
+    try {
+      const response = await axios.get('/user/getOtherDogs', {
+        params: {
+          userId: this.props.userId
+        }
+      })
+      const profiles = await this.setState(() => ({ dogList: response.data}))
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
 
   render() {
-    console.log('this is match state', this.state);
     return (
       <>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat}/>
-        <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
-        <div>
-          <PassBtn handlePass={this.handlePass} />
-          <MatchBtn likeButton={this.likeButton} />
-        </div>
+        <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} handlePass={this.handlePass} handleMatch={this.handleMatch} />
       </>
     )
   }
 }
 
 export default MatchContainer;
-
 
 
