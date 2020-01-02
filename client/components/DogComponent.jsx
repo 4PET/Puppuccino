@@ -5,27 +5,27 @@ const DogComponent = props => {
         <div>
             <h2>Dog Profile</h2>
             <form id="dogProfileForm">
-                <label >Name:</label>
+                <label >Name *</label>
                 <input
                     type="text"
                     name="dogName"
                     placeholder={props.dogName}
                     onChange={e => props.updateInfo(e.target.name, e.target.value)}
                 />
-                <label >Age:</label>
+                <label >Age *</label>
                 <input
                     type="text"
                     name="dogAge"
                     placeholder={props.dogAge}
                     onChange={e => props.updateInfo(e.target.name, e.target.value)}
                 />
-                <label >Gender:</label>
+                <label >Gender *</label>
                 <select name="dogGender" onChange={e => props.updateInfo(e.target.name, e.target.value)} >
                     <option defaultValue={props.dogGender}>{props.dogGender}</option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                 </select>
-                <label >Breed:</label>
+                <label >Breed *</label>
                 <select name="dogBreed" onChange={e => props.updateInfo(e.target.name, e.target.value)} >
                     <option defaultValue={props.dogBreed}>{props.dogBreed}</option>
                     <option value="Australian Shepherd">Australian Shepherd</option>
@@ -58,7 +58,7 @@ const DogComponent = props => {
                     <option value="Yorkshire Terrier">Yorkshire Terrier</option>
                     <option value="Vizsla">Vizsla</option>
                 </select>
-                <label >Size:</label>
+                <label >Size *</label>
                 <select name="dogSize" onChange={e => props.updateInfo(e.target.name, e.target.value)} >
                     <option defaultValue={props.dogSize}>{props.dogSize}</option>
                     <option value="Under 10 lbs">Under 10 lbs</option>
@@ -69,14 +69,14 @@ const DogComponent = props => {
                     <option value="60-80 lbs">60-80 lbs</option>
                     <option value="Over 80 lbs">Over 80 lbs</option>
                 </select>
-                <label >Temperament:</label>
+                <label >Temperament *</label>
                 <select name="dogTemperament" onChange={e => props.updateInfo(e.target.name, e.target.value)} >
                     <option defaultValue={props.dogTemperament}>{props.dogTemperament}</option>
                     <option value="Fairly calm">Fairly calm</option>
                     <option value="Likes to play a little">Likes to play a little</option>
                     <option value="Extremely energetic">Extremely energetic</option>
                 </select>
-                <label >Neutered/Spayed?:</label>
+                <label >Neutered/Spayed? *</label>
                 <select name="dogNeuteredSpayed" onChange={e => props.updateInfo(e.target.name, e.target.value)} >
                     <option defaultValue={props.dogNeuteredSpayed}>{props.dogNeuteredSpayed}</option>
                     <option value="Yes">Yes</option>

@@ -4,7 +4,8 @@ import Login from './Login.jsx';
 import Signup from "./Signup.jsx";
 import Signout from "./Signout.jsx";
 import MyAccount from "./MyAccount.jsx"
-import MatchBtn from "./Match/MatchBtn"
+import BioBtn from "./Match/BioBtn"
+import LikeBtn from "./Match/LikeBtn"
 import PassBtn from "./Match/PassBtn"
 import Profile from "./Match/Profile";
 import Navigation from './Navigation/Navigation'
@@ -39,9 +40,9 @@ class App extends React.Component {
       dogNeuteredSpayed: '',
       dogBio: '',
       dogList: [],
-      currentPhoto: 0, 
+      currentPhoto: 0,
       pass: false,
-      match: false,      
+      like: false
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -148,7 +149,8 @@ class App extends React.Component {
       userAge: this.state.userAge,
       userGender: this.state.userGender,
       userBio: this.state.userBio,
-      userPhoto: this.state.userPhoto
+      userPhoto: this.state.userPhoto,
+      userLocation: this.state.userLocation
     })
       .then(response => {
         console.log("User info saved.");
@@ -205,16 +207,16 @@ class App extends React.Component {
         userId: this.state.userId
       }
     })
-    .then(res => {
-      this.setState(() => ({
-        dogList: res.data,
-        // dogPhoto: res.data[this.state.currentPhoto].photo
-      }))
-      console.log(res.data)
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+      .then(res => {
+        this.setState(() => ({
+          dogList: res.data,
+          // dogPhoto: res.data[this.state.currentPhoto].photo
+        }))
+        console.log(res.data)
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
   handlePass = () => {
@@ -237,7 +239,7 @@ class App extends React.Component {
     console.log('clicked here')
     this.setState(prevState => ({
       isMyAccountClicked: !prevState.isMyAccountClicked
-    }));  
+    }));
   }
 
   render() {
@@ -252,8 +254,9 @@ class App extends React.Component {
           <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
           <div>
             <PassBtn handlePass={this.handlePass} />
-            <MatchBtn likeButton={this.likeButton} />          
+            <LikeBtn likeButton={this.likeButton} />
           </div>
+          <BioBtn />
         </React.Fragment>
       )
     }
