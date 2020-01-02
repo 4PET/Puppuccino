@@ -28,6 +28,7 @@ class MatchContainer extends React.Component {
   handleMatch = (e) => {
     e.preventDefault();
     console.log('here', {dog1_id: this.props.dogId})
+    console.log('here', {userId: this.props.userId})
     console.log('here2', {dog2_id: this.state.dogList[this.state.currentPhoto]._id})
     // axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
     //   .then(() => {
