@@ -1,0 +1,89 @@
+#root {
+    width: 40%;
+    margin: 0 auto;
+    font-family: Roboto;
+}
+#dogProfileForm, #userProfileForm {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(212, 222, 235, 0.493);
+    padding: 30px;
+}
+
+#dogProfileForm, #userProfileForm label, input, select, textarea, button {
+    margin-top: 10px;
+    height: 160%;
+}
+
+$sent-msg-bg: rgb(219, 231, 222);
+$received-msg-bg: #D3CDEB;
+$chat-bg-color: #F9F9F9;
+
+
+#chatroom {
+	overflow: auto;
+	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow-wrap: break-word;
+}
+
+.sent {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-self: flex-end;
+	color: black;
+}
+
+.sent span {
+	display: flex;
+}
+
+.speech-bubble-received {
+	position: relative;
+	background: $received-msg-bg;
+	border-radius: .4em;
+	margin: 5px;
+	max-width: 60%;
+}
+
+.speech-bubble-received:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.25em solid transparent;
+	border-right-color: $received-msg-bg;
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -0.125em;
+	margin-left: -0.25em;
+}
+
+.speech-bubble-sent {
+	position: relative;
+	background: $sent-msg-bg;
+	border-radius: .4em;
+	margin: 5px;
+	max-width: 60%;
+	align-self: right;
+}
+
+.speech-bubble-sent:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.25em solid transparent;
+	border-left-color: $sent-msg-bg;
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -0.125em;
+	margin-right: -0.25em;
+}
