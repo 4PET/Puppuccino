@@ -2,7 +2,7 @@ import React from 'react';
 
 const MatchBtn = () => {
   return (
-    <button>
+    <button className="matchBtns">
       Match
     </button>
   )

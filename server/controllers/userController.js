@@ -97,7 +97,6 @@ userController.getDogInfo = async (req, res, next) => {
         const params = [owner_id];
         const result = await db.query(text, params);
         res.locals.userData[1] = result.rows[0];
-        console.log("TaLYAA", res.locals.userData[1])
         next();
     }
     catch (err) {
@@ -108,18 +107,40 @@ userController.getDogInfo = async (req, res, next) => {
     }
 }
 
+userController.getWeight = async (req, res, next) => {
+    const owner_id = req.query.userId;
+    try {
+        const text = `
+            SELECT size FROM dogs
+            WHERE
+            owner_id=$1
+        `;
+        const params = [owner_id];
+        const result = await db.query(text, params);
+        res.locals.size = result.rows[0].size;
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.getWeight: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.getWeight. Check server logs for more details.' }
+        });
+    }
+}
+
 userController.getOtherDogs = async (req, res, next) => {
-    console.log("this", req.query.userId)
     const owner_id = req.query.userId;
     try {
         const text = `
             SELECT * FROM dogs
+            WHERE
+            size=$2
             EXCEPT
             SELECT * FROM dogs
             WHERE
             owner_id=$1
         `;
-        const params = [owner_id];
+        const params = [owner_id, res.locals.size];
         const result = await db.query(text, params);
         res.locals.dogList = result.rows;
         console.log(res.locals.dogList)

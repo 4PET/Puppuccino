@@ -116,14 +116,15 @@ class MyAccount extends React.Component {
         console.log('this is my account state', this.state)
         return (
             <div>
-                <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat} toMatch={this.props.toMatch} />
-                <h1>My Account</h1>
+                <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat={this.props.toChat} toMatch={this.props.toMatch} />
+                <h2>My Account</h2>
                 <UserComponent
                     saveUserInfo={this.saveUserInfo}
                     updateInfo={this.updateInfo}
                     userAge={this.state.userAge}
                     userGender={this.state.userGender}
                     userBio={this.state.userBio}
+                    userLocation={this.state.userLocation}
                 />
                 <DogComponent
                     saveDogInfo={this.saveDogInfo}

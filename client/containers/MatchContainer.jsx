@@ -10,7 +10,7 @@ class MatchContainer extends React.Component {
     super(props);
     this.state = {
       dogList: [],
-      currentPhoto: 0, 
+      currentPhoto: 0,
       pass: false,
       like: false
     };
@@ -37,14 +37,14 @@ class MatchContainer extends React.Component {
         userId: this.props.userId
       }
     })
-    .then(res => {
-      this.setState(() => ({
-        dogList: res.data,
-      }))
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+      .then(res => {
+        this.setState(() => ({
+          dogList: res.data,
+        }))
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
 
@@ -52,11 +52,14 @@ class MatchContainer extends React.Component {
     console.log('this is match state', this.state);
     return (
       <>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat}/>
-        <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
-        <div>
-          <PassBtn handlePass={this.handlePass} />
-          <MatchBtn likeButton={this.likeButton} />
+        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat={this.props.toChat} />
+        <h2>My Matches</h2>
+        <div className="matchCard">
+          <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
+          <div>
+            <PassBtn handlePass={this.handlePass} />
+            <MatchBtn likeButton={this.likeButton} />
+          </div>
         </div>
       </>
     )

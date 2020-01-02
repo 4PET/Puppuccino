@@ -13,10 +13,13 @@ import React from 'react';
 
 const ChatBox = ({ dogName, lastChat, timeStamp, clickEvent }) => {
   return (
-    <div id="chatBox" className="chatBox" onClick = {clickEvent}>
-      <h2>{dogName}</h2>
-      <p>{lastChat}</p>
-      <p>{timeStamp}</p>
+    <div id="chatBox" className="chatBox" onClick={clickEvent}>
+      <h2>Chat</h2>
+      <div className="currentChat">
+        <h3>Chatting with: {dogName}</h3>
+        <p>{lastChat}</p>
+        <p>{timeStamp}</p>
+      </div>
     </div >
   );
 }

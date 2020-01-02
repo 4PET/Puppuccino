@@ -6,7 +6,7 @@ const Profile = ({ dogList, currentPhoto }) => {
   }
   return (
     <div>
-      <img id='inputimage' alt='' src={dogList[currentPhoto].photo} width="100%" height="500px"/>
+      <img id='inputimage' alt='' src={dogList[currentPhoto].photo} width="100%" />
       <ul>
         <li><strong>Name:</strong> {dogList[currentPhoto].name}</li>
         <li><strong>Age:</strong> {dogList[currentPhoto].age}</li>
@@ -14,8 +14,11 @@ const Profile = ({ dogList, currentPhoto }) => {
         <li><strong>Breed:</strong> {dogList[currentPhoto].breed}</li>
         <li><strong>Size:</strong> {dogList[currentPhoto].size}</li>
         <li><strong>Temperament:</strong> {dogList[currentPhoto].temperament}</li>
-        <li><strong>Neutered_spayed:</strong> {dogList[currentPhoto].neutered_spayed}</li>
-        <li><strong>About Me:</strong> {dogList[currentPhoto].bio}</li>      
+        <li><strong>Neutered/Spayed:</strong> {dogList[currentPhoto].neutered_spayed}</li>
+        <li><strong>About Me:</strong> {dogList[currentPhoto].bio}</li>
+        {/* <h4>Owner Profile</h4> */}
+        {/* <li><strong>Age:</strong> </li> */}
+        {/* <li><strong>Gender:</strong> </li> */}
       </ul>
     </div>
   )

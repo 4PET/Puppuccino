@@ -23,7 +23,7 @@ router.post('/saveDogInfo', userController.saveDogInfo, (req, res) => {
     res.sendStatus(200);
 });
 
-router.get('/getOtherDogs', userController.getOtherDogs, (req, res) => {
+router.get('/getOtherDogs', userController.getWeight, userController.getOtherDogs, (req, res) => {
     res.status(200).json(res.locals.dogList);
 })
 
