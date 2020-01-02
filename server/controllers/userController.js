@@ -66,6 +66,27 @@ userController.verifyUser = async (req, res, next) => {
     }
 }
 
+userController.getUserInfo = async (req, res, next) => {
+    res.locals.userData = [];
+    const { userId } = req.body;
+    try {
+        const text = `
+            SELECT * FROM users
+            WHERE _id=$1
+        `;
+        const params = [userId];
+        const result = await db.query(text, params);
+        res.locals.userData[0] = result.rows[0];
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.verifyUser: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
+        });
+    }
+}
+
 userController.getDogInfo = async (req, res, next) => {
     const owner_id = res.locals.userData[0]._id;
     try {
@@ -76,7 +97,7 @@ userController.getDogInfo = async (req, res, next) => {
         const params = [owner_id];
         const result = await db.query(text, params);
         res.locals.userData[1] = result.rows[0];
-        // console.log(res.locals.userData)
+        console.log("TaLYAA", res.locals.userData[1])
         next();
     }
     catch (err) {
@@ -113,14 +134,15 @@ userController.getOtherDogs = async (req, res, next) => {
 }
 
 userController.saveUserInfo = async (req, res, next) => {
-    const { username, userAge, userGender, userBio, userPhoto, userLocation } = req.body;
+    const { userId, userAge, userGender, userBio, userPhoto, userLocation } = req.body;
+    console.log(userId, userAge, userGender, userBio, userPhoto, userLocation)
     try {
         const text = `
       UPDATE users
       SET age=$2, gender=$3, bio=$4, photo=$5, location=$6
-      WHERE username=$1
+      WHERE _id=$1
     `;
-        const params = [username, userAge, userGender, userBio, userPhoto, userLocation];
+        const params = [userId, userAge, userGender, userBio, userPhoto, userLocation];
         const result = await db.query(text, params);
         next();
     }
@@ -151,6 +173,33 @@ userController.saveDogInfo = async (req, res, next) => {
             message: { err: 'Error occurred in userController.addDog. Check server logs for more details.' }
         });
     }
+}
+
+userController.matchDogs = async (req, res, next) => {
+    const { userId } = req.body;
+
+    try {
+        const text = `
+            INSERT INTO matches (dog1_id, dog2_id, match_date)
+            VALUES ($1, $2)
+            RETURNING *
+        `;
+        const params = [userId];
+        const result = await db.query(text, params);
+        // res.locals.dogData = result.rows[0];
+        next();
+    }
+
+    catch (err) {
+        next({
+            log: `userController.matchDogs: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.matchDogs. Check server logs for more details.' }
+        });
+    }
+}
+
+userController.checkMatch = async (req, res, next) => {
+
 }
 
 module.exports = userController
