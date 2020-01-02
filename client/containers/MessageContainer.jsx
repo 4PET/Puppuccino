@@ -11,8 +11,9 @@
 
 import React from 'react';
 import MessageBalloon from '../components/MessageBalloon.jsx'
+import WriteMessage from '../components/WriteMessage.jsx'
 
-const messageContainer = ({ userId, messages, goBackFunction }) => {
+const messageContainer = ({ userId, opponentId, messages, goBackFunction, fetchChats }) => {
   const messagesDisplay=[];
   for(let i = messages.length -1; i  >= 0; i --){
     if(messages[i].sender_id == userId){
@@ -28,6 +29,7 @@ const messageContainer = ({ userId, messages, goBackFunction }) => {
       <div id = "chatroom">
         {messagesDisplay}
       </div>
+      <WriteMessage sender = {userId} receiver = {opponentId} fetchMessage = {fetchChats}/>
     </React.Fragment>
   )
 }

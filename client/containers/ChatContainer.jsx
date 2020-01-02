@@ -22,6 +22,8 @@ class ChatContainer extends React.Component {
       chatList: [],
       allChats: {}
     };
+
+    this.fetchChats = this.fetchChats.bind(this);
   }
 
   componentDidMount(){
@@ -63,10 +65,12 @@ class ChatContainer extends React.Component {
       display.push(<MessageContainer 
         key = {0}
         userId = {this.props.userId}
+        opponentId = {this.state.messageWith}
         messages = {this.state.allChats[this.state.messageWith]}
         goBackFunction = {() =>{
           this.setState({messageWith: -1});
         }}
+        fetchChats = {this.fetchChats}
       />)
     }
     else {
