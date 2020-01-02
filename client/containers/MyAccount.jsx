@@ -28,23 +28,19 @@ class MyAccount extends React.Component {
             dogBio: '',
             dogPhoto: '',
         }
-        this.saveUserInfo = this.saveUserInfo.bind(this);
-        this.saveDogInfo = this.saveDogInfo.bind(this);
-        this.getUserInfo = this.getUserInfo.bind(this);
-        this.updateInfo = this.updateInfo.bind(this)
     }
 
     componentDidMount() {
         this.getUserInfo()
     }
 
-    updateInfo(property, value) {
+    updateInfo = (property, value) => {
         let updateObj = {};
         updateObj[property] = value;
         this.setState(updateObj);
     }
 
-    saveUserInfo() {
+    saveUserInfo = () => {
         axios.post('/user/saveUserInfo', {
             userId: this.state.userId,
             userAge: this.state.userAge,
@@ -61,7 +57,7 @@ class MyAccount extends React.Component {
             });
     }
 
-    saveDogInfo() {
+    saveDogInfo = () => {
         axios.post('/user/saveDogInfo', {
             dogName: this.state.dogName,
             dogAge: this.state.dogAge,
@@ -84,7 +80,7 @@ class MyAccount extends React.Component {
         console.log(this.state)
     }
 
-    getUserInfo() {
+    getUserInfo = () => {
         axios.post('/user/login', { userId: this.props.userId })
             .then(response => {
                 this.setState({
@@ -116,7 +112,6 @@ class MyAccount extends React.Component {
         console.log('this is my account state', this.state)
         return (
             <div>
-                <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat} toMatch={this.props.toMatch} />
                 <h1>My Account</h1>
                 <UserComponent
                     saveUserInfo={this.saveUserInfo}

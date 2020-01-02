@@ -23,8 +23,6 @@ class ChatContainer extends React.Component {
       chatList: [],
       allChats: {}
     };
-
-    this.fetchChats = this.fetchChats.bind(this);
   }
 
   componentDidMount(){
@@ -32,7 +30,7 @@ class ChatContainer extends React.Component {
     setInterval(()=> this.fetchChats(), 10000);
   }
 
-  fetchChats(){
+  fetchChats = () => {
     axios.get('/chat', {
       params:{ userId: this.props.userId }
     })
@@ -89,7 +87,6 @@ class ChatContainer extends React.Component {
     }
     return (
       <div>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat} toMatch={this.props.toMatch}/>
         {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
       </div>
     )
