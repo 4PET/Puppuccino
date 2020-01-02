@@ -3,19 +3,22 @@ import MyAccount from "./MyAccount.jsx";
 import MatchContainer from './MatchContainer.jsx';
 import LoginContainer from "./LogInContainer.jsx";
 import ChatContainer from "./ChatContainer.jsx";
+import Navigation from '../components/Navigation/Navigation'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       pageToRender: "login",
-      userId: 0,
+      userId: -1,
+      dogId: -1,
     };
   }
 
-  toMatch = (id = this.state.userId) => {
+  toMatch = (userId = this.state.userId, dogId = this.state.dogId) => {
     this.setState({
-      userId: id,
+      userId: userId,
+      dogId: dogId,
       pageToRender: "match",
     });
   }
@@ -23,6 +26,7 @@ class App extends React.Component {
   signOut = () => {
     this.setState({
       pageToRender: "login",
+      userId: -1
     })
   }
 
@@ -39,13 +43,15 @@ class App extends React.Component {
   }
 
   render() {
-    let displayed;
+    let displayed = null;
+    let navigation = null;
     if (this.state.pageToRender === "login") {
       displayed = (<LoginContainer toMatch={this.toMatch} toMyAccount={this.toMyAccount} />);
     }
+
     else if(this.state.pageToRender === "match"){
       displayed = (
-        <MatchContainer userId = {this.state.userId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
+        <MatchContainer userId = {this.state.userId} dogId= {this.state.dogId} signOut={this.signOut} toMyAccount={this.toMyAccount} toChat={this.toChat}/>
       );
     }
     else if(this.state.pageToRender === "myAccount") {
@@ -54,8 +60,16 @@ class App extends React.Component {
     else if(this.state.pageToRender === "chat"){
       displayed = (<ChatContainer userId = {this.state.userId} toMyAccount={this.toMyAccount} toMatch={this.toMatch} signOut={this.signOut} />);
     }
+
+    if (this.state.pageToRender !== 'login'){
+      navigation = (
+        <Navigation signOut={this.signOut} handleClickMyAccount={this.toMyAccount} toChat ={this.toChat} toMatch={this.toMatch} />
+      )
+    }
+    
     return (
       <React.Fragment>
+        {navigation}
         {displayed}
       </React.Fragment>
     )

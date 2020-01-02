@@ -1,8 +1,8 @@
 import React from 'react';
 
-const MatchBtn = () => {
+const MatchBtn = ({ handleMatch }) => {
   return (
-    <button>
+    <button onClick={handleMatch}>
       Match
     </button>
   )

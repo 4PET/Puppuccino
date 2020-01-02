@@ -12,7 +12,6 @@
 import React from 'react';
 import ChatBox from '../components/ChatBox.jsx'
 import MessageContainer from './MessageContainer.jsx'
-import Navigation from '../components/Navigation/Navigation'
 import axios from 'axios'
 
 class ChatContainer extends React.Component {
@@ -23,8 +22,6 @@ class ChatContainer extends React.Component {
       chatList: [],
       allChats: {}
     };
-
-    this.fetchChats = this.fetchChats.bind(this);
   }
 
   componentDidMount(){
@@ -32,7 +29,7 @@ class ChatContainer extends React.Component {
     setInterval(()=> this.fetchChats(), 10000);
   }
 
-  fetchChats(){
+  fetchChats = () => {
     axios.get('/chat', {
       params:{ userId: this.props.userId }
     })
@@ -87,13 +84,23 @@ class ChatContainer extends React.Component {
         />)
       }
     }
+
+    let noMatch;
+    if (this.state.chatList.length === 0) {
+      noMatch = (
+        <div>You have no Match! Go discover your potential match!</div>
+      )
+    }
+
     return (
       <div>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat} toMatch={this.props.toMatch}/>
-        {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
+        {display}
+        {noMatch}
       </div>
     )
   }
 }
+
+// {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
 
 export default ChatContainer;
