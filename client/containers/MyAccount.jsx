@@ -3,7 +3,7 @@ import axios from "axios";
 import Signout from "../components/Signout.jsx";
 import UserComponent from "../components/UserComponent.jsx";
 import DogComponent from "../components/DogComponent.jsx";
-import BackToMainBtn from '../components/Navigation/BackToMainBtn';
+import Navigation from '../components/Navigation/Navigation';
 
 class MyAccount extends React.Component{
     constructor(props){
@@ -108,8 +108,7 @@ class MyAccount extends React.Component{
         console.log('this is my account state', this.state)
         return (
             <div>
-                <BackToMainBtn handleBackToMain={() => this.props.toMatch(this.state.userId)} />
-                <Signout handleSignout={this.props.toLogin} />
+                <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat} toMatch={this.props.toMatch} />
                 <h1>My Account</h1>
                 <UserComponent
                     saveUserInfo={this.state.saveUserInfo}

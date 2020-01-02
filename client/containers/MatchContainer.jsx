@@ -52,11 +52,11 @@ class MatchContainer extends React.Component {
     console.log('this is match state', this.state);
     return (
       <>
-        <Navigation signOut={this.props.toLogin} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat}/>
+        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat ={this.props.toChat}/>
         <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
         <div>
           <PassBtn handlePass={this.handlePass} />
-          <MatchBtn likeButton={this.likeButton} />          
+          <MatchBtn likeButton={this.likeButton} />
         </div>
       </>
     )
