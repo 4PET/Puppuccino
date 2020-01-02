@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 
-router.post('/login', userController.verifyUser, userController.getDogInfo, (req, res) => {
+router.post('/login', userController.getUserInfo, userController.getDogInfo, (req, res) => {
     res.status(200).json(res.locals.userData);
 });
 

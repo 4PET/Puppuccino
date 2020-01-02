@@ -10,12 +10,23 @@ class MatchContainer extends React.Component {
     super(props);
     this.state = {
       dogList: [],
+      currentPhoto: 0, 
+      pass: false,
+      like: false
     };
   }
 
   componentDIdMount() {
     console.log('fetching data');
     this.fetchProfile();
+  }
+
+  handlePass = () => {
+    this.setState(prevState => ({
+      currentPhoto: prevState.currentPhoto += 1,
+      dogPhoto: prevState.dogList[this.state.currentPhoto]
+    }));
+    console.log(this.state.currentPhoto)
   }
 
   fetchProfile() {
@@ -40,7 +51,7 @@ class MatchContainer extends React.Component {
     console.log(this.state);
     return (
       <>
-        <Navigation signOut={this.props.handleSignout} handleClickMyAccount={this.handleClickMyAccount} />
+        <Navigation signOut={this.props.toLogin} handleClickMyAccount={this.props.toMyAccount} />
         <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
         <div>
           <PassBtn handlePass={this.handlePass} />

@@ -29,7 +29,7 @@ class LoginContainer extends React.Component {
     axios.post('/user/verify', { username: this.state.username, password: this.state.password })
     .then(response => {
       if(response.data[0]){
-        this.props.handleLogin(response.data[0]._id);
+        this.props.toMatch(response.data[0]._id);
       }
       else{
         alert('password wrong!');
@@ -42,7 +42,7 @@ class LoginContainer extends React.Component {
     e.preventDefault();
     axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
       .then(() => {
-        this.props.handleLogin(response.data._id);
+        this.props.toMatch(response.data._id);
         this.setState({
           onSignUpPage: false,
         });
