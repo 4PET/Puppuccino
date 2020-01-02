@@ -2,12 +2,17 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
+
 router.post('/login', userController.verifyUser, userController.getDogInfo, (req, res) => {
     res.status(200).json(res.locals.userData);
 });
 
+router.post('/verify', userController.verifyUser, (req, res) => {
+    res.status(200).json(res.locals.userData);
+});
+
 router.post('/createNewUser', userController.hashPassword, userController.createUser, (req, res) => {
-    res.sendStatus(200);
+    res.status(200).json(res.locals.user);
 });
 
 router.post('/saveUserInfo', userController.saveUserInfo, (req, res) => {
