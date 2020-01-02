@@ -93,7 +93,7 @@ userController.getOtherDogs = async (req, res, next) => {
     try {
         const text = `
             SELECT * FROM dogs
-            EXCEPT 
+            EXCEPT
             SELECT * FROM dogs
             WHERE
             owner_id=$1
@@ -113,14 +113,14 @@ userController.getOtherDogs = async (req, res, next) => {
 }
 
 userController.saveUserInfo = async (req, res, next) => {
-    const { username, userAge, userGender, userBio, userPhoto } = req.body;
+    const { username, userAge, userGender, userBio, userPhoto, userLocation } = req.body;
     try {
         const text = `
       UPDATE users
-      SET age=$2, gender=$3, bio=$4, photo=$5
+      SET age=$2, gender=$3, bio=$4, photo=$5, location=$6
       WHERE username=$1
     `;
-        const params = [username, userAge, userGender, userBio, userPhoto];
+        const params = [username, userAge, userGender, userBio, userPhoto, userLocation];
         const result = await db.query(text, params);
         next();
     }
