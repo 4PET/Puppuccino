@@ -1,41 +1,24 @@
 const db = require('../models/userModel');
 
-const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const fs = require('fs');
-const { cryptoKey } = require('../../config');
-const User = require('../models/userModel');
 const userController = {};
 
-//THIS ISN'T BEING USED AT THE MOMENT
-userController.hashPassword = (req, res, next) => {
-    const { username, password } = req.body;
-    bcrypt.hash(password, 10, function (err, hash) {
-        if (err) {
-            console.log(`${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`, "| USERNAME:", `${req.body.username}`, "| userController.hashPassword | ERROR: ", `${err}`)
-            return next(err);
-        } else {
-            res.locals.userInfo = {
-                username,
-                password: hash
-            };
-            return next();
-        }
-    });
-}
 
-userController.createUser = async (req, res, next) => {
-    const { username, password } = req.body;
+userController.createUser = (req, res, next) => {
+    let { username, password } = req.body;
     try {
         const text = `
       INSERT INTO users (username, password)
       VALUES ($1, $2)
       RETURNING *
     `;
-        const params = [username, password];
-        const result = await db.query(text, params);
+      bcrypt.hash(password, 10, async function(err, hash) {
+        const params = [username,hash];
+        const result =  await db.query(text,params)
         res.locals.user = result.rows[0];
+        console.log('in UserController ----------- THIS IS THE NEW USER', res.locals.user)
         next();
+      })
     }
     catch (err) {
         next({
@@ -45,25 +28,46 @@ userController.createUser = async (req, res, next) => {
     }
 }
 
-userController.verifyUser = async (req, res, next) => {
+userController.verifyUser =  (req, res, next) => {
     res.locals.userData = [];
     const { username, password } = req.body;
-    try {
-        const text = `
-            SELECT * FROM users
-            WHERE username=$1 AND password=$2
-        `;
-        const params = [username, password];
-        const result = await db.query(text, params);
-        res.locals.userData[0] = result.rows[0];
-        next();
-    }
-    catch (err) {
-        next({
-            log: `userController.verifyUser: ERROR: ${err}`,
-            message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
-        });
-    }
+
+    const text = `
+    SELECT username, password FROM users
+    WHERE username=$1
+    `;
+
+    const params = [username];
+
+    db.query(text, params)
+    .then(data => {
+      if(data.rows.length === 0) {
+        return res.status(404).json({nouser : 'no user found'});
+      }
+      res.locals.userData[0] = data.rows[0];
+
+      res.locals.username = data.rows[0].username;
+      const hash = data.rows[0].password;
+     
+
+      bcrypt.compare(password, hash, function(err, result) {
+        console.log('inside compare')
+        if (err) {
+          console.log('some error')
+          return next({error: err})
+        } else if(result) {
+        console.log('Password correct')
+        return next()
+        } else {
+          console.log('Password wrong')
+         res.status(403).json('Wrong password');
+        } 
+      });
+    })
+    .catch(err => {
+      console.log('Error in userController.verifyUser', err)
+      return next({ error: err });
+    })
 }
 
 userController.createNewDog = async (req, res, next) => {
@@ -225,3 +229,27 @@ userController.checkMatch = async (req, res, next) => {
 }
 
 module.exports = userController
+
+
+
+
+// userController.verifyUser = async (req, res, next) => {
+//   res.locals.userData = [];
+//   const { username, password } = req.body;
+//   try {
+//       const text = `
+//           SELECT * FROM users
+//           WHERE username=$1 AND password=$2
+//       `;
+//       const params = [username, password];
+//       const result = await db.query(text, params);
+//       res.locals.userData[0] = result.rows[0];
+//       next();
+//   }
+//   catch (err) {
+//       next({
+//           log: `userController.verifyUser: ERROR: ${err}`,
+//           message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
+//       });
+//   }
+// }

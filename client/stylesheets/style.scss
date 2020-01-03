@@ -18,15 +18,17 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  // min-width: 400px;
 }
 
 #loginForm,
-#signupForm, {
+#signupForm {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   width: 75%;
 }
+
 
 .loginInput{
   margin-top: 10px;
