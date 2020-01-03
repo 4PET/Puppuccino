@@ -176,17 +176,17 @@ userController.saveDogInfo = async (req, res, next) => {
 }
 
 userController.matchDogs = async (req, res, next) => {
-    const { userId } = req.body;
+    const { dog1_id, dog2_id } = req.body;
 
     try {
         const text = `
-            INSERT INTO matches (dog1_id, dog2_id, match_date)
+            INSERT INTO matches (dog1_id, dog2_id)
             VALUES ($1, $2)
             RETURNING *
         `;
-        const params = [userId];
+        const params = [dog1_id, dog2_id];
         const result = await db.query(text, params);
-        // res.locals.dogData = result.rows[0];
+        // res.locals.matches = result.rows[0];
         next();
     }
 
@@ -198,8 +198,25 @@ userController.matchDogs = async (req, res, next) => {
     }
 }
 
-userController.checkMatch = async (req, res, next) => {
-
+userController.checkExistingMatch = async (req, res, next) => {
+    res.locals.matches = [];
+    const { dog1_id, dog2_id } = req.body;
+    try {
+        const text = `
+            SELECT * FROM matches
+            WHERE dog1_id=$1 AND dog2_id=$2
+        `;
+        const params = [dog1_id, dog2_id];
+        const result = await db.query(text, params);
+        res.locals.matches[0] = result.rows[0];
+        next();
+    }
+    catch (err) {
+        next({
+            log: `userController.checkExistingMatch: ERROR: ${err}`,
+            message: { err: 'Error occurred in userController.checkExistingMatch. Check server logs for more details.' }
+        });
+    }
 }
 
 module.exports = userController

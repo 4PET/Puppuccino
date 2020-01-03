@@ -25,21 +25,36 @@ class MatchContainer extends React.Component {
     }));
   }
 
-  handleMatch = (e) => {
+  handleMatch = async (e) => {
     e.preventDefault();
-    console.log('here', {dog1_id: this.props.dogId})
-    console.log('here', {userId: this.props.userId})
-    console.log('here2', {dog2_id: this.state.dogList[this.state.currentPhoto]._id})
-    // axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
-    //   .then(() => {
-    //     this.props.toMatch(response.data._id);
-    //     this.setState({
-    //       onSignUpPage: false,
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error);
-    //   });
+    // console.log('here', {dog1_id: this.props.dogId})
+    // console.log('here2', {dog2_id: this.state.dogList[this.state.currentPhoto]._id})
+    try {
+      const result = await this.setState(() => (
+        {
+          dog1_id: this.props.dogId, 
+          dog2_id: this.state.dogList[this.state.currentPhoto]._id
+        }
+      ))
+
+      axios.get('/user/checkExistingMatch', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
+      .then(response => {
+        if (response.data[0] && response.data[1]) {
+          this.props.toMatch(response.data[0]._id,response.data[1]._id);
+        }
+        else if (response.data[0]) {
+          this.props.toMyAccount(response.data[0]._id);
+        }
+        else {
+          alert('password wrong!');
+        }
+      })
+
+      const response = await axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id})
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 
   fetchProfile = async () => {
