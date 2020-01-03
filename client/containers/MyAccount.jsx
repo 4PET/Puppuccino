@@ -7,8 +7,10 @@ class MyAccount extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: -1,
+            dogId: -1,
             //User Profile
-            userId: '',
+            
             userAge: '',
             userGender: '',
             userBio: '',
@@ -47,47 +49,64 @@ class MyAccount extends React.Component {
             userPhoto: this.state.userPhoto,
             userLocation: this.state.userLocation
         })
-            .then(response => {
-                console.log("User info saved.");
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
+        .then(response => {
+            console.log("User info saved.");
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
     }
 
     saveDogInfo = () => {
-        axios.post('/user/saveDogInfo', {
+        let url = "";
+        if(this.state.dogId < 0){
+            url = '/user/createNewDog';
+        }
+        else{
+            url = '/user/saveDogInfo';
+        }
+        axios.post(url, {
             dogName: this.state.dogName,
             dogAge: this.state.dogAge,
             dogGender: this.state.dogGender,
             dogBreed: this.state.dogBreed,
             dogSize: this.state.dogSize,
-            dogBreed: this.state.dogBreed,
             dogTemperament: this.state.dogTemperament,
             userId: this.state.userId,
             dogNeuteredSpayed: this.state.dogNeuteredSpayed,
             dogBio: this.state.dogBio,
             dogPhoto: this.state.dogPhoto
         })
-            .then(response => {
-                console.log("Dog info saved.");
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
-        console.log(this.state)
+        .then(response => {
+            console.log('this is response for saving dog info', response);
+            this.props.toMatch(this.props.userId, response.data[0]._id);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
     }
 
     getUserInfo = () => {
         axios.post('/user/login', { userId: this.props.userId })
-            .then(response => {
-                console.log('this is response for first sign in', response, this.props.userId, this.props.dogId);
-                if(response.data[0].age === null){
-                    
-                }
+        .then(response => {
+            console.log('this is response for first sign in', response, this.props.userId, this.props.dogId);
+            if(this.props.dogId < 0){ // no dog info yet!
                 this.setState({
-                    isLoggedIn: true,
-                    userId: response.data[0]._id,
+                    userId: this.props.userId,
+                    dogId: this.props.dogId
+                })
+                if(typeof response.data[0].age === "number"){
+                    this.setState({
+                        userAge: response.data[0].age,
+                        userGender: response.data[0].gender,
+                        userBio: response.data[0].bio,
+                        userPhoto: response.data[0].photo,
+                        userLocation: response.data[0].location,
+                    });
+                }
+            }
+            else{
+                this.setState({
                     userAge: response.data[0].age,
                     userGender: response.data[0].gender,
                     userBio: response.data[0].bio,
@@ -103,14 +122,14 @@ class MyAccount extends React.Component {
                     dogBio: response.data[1].bio,
                     dogPhoto: response.data[1].photo,
                 });
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
     }
 
     render() {
-        console.log('this is my account state', this.state)
         return (
             <div>
                 <h1>My Account</h1>
@@ -120,6 +139,8 @@ class MyAccount extends React.Component {
                     userAge={this.state.userAge}
                     userGender={this.state.userGender}
                     userBio={this.state.userBio}
+                    userPhoto = {this.state.userPhoto} 
+                    userLocation={this.state.userLocation}
                 />
                 <DogComponent
                     saveDogInfo={this.saveDogInfo}
