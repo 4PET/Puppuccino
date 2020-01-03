@@ -7,10 +7,11 @@ class MatchContainer extends React.Component {
     super(props);
     this.state = {
       dogList: [],
-      currentPhoto: 0, 
+      currentPhoto: 0,
       pass: false,
       dog1_id: null,
-      dog2_id: null
+      dog2_id: null,
+      matches: [],
     };
   }
 
@@ -19,10 +20,18 @@ class MatchContainer extends React.Component {
   }
 
   handlePass = () => {
-    this.setState(prevState => ({
-      currentPhoto: prevState.currentPhoto += 1,
-      dogPhoto: prevState.dogList[this.state.currentPhoto]
-    }));
+    if (this.state.currentPhoto === this.state.dogList.length - 1) {
+      this.setState(prevState => ({
+        currentPhoto: 0,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    } else {
+
+      this.setState(prevState => ({
+        currentPhoto: prevState.currentPhoto += 1,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    }
   }
 
   handleMatch = async (e) => {
@@ -64,7 +73,7 @@ class MatchContainer extends React.Component {
           userId: this.props.userId
         }
       })
-      const profiles = await this.setState(() => ({ dogList: response.data}))
+      const profiles = await this.setState(() => ({ dogList: response.data }))
     }
     catch (e) {
       console.log(e)
@@ -75,6 +84,7 @@ class MatchContainer extends React.Component {
   render() {
     return (
       <>
+        <h2>Matches</h2>
         <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} handlePass={this.handlePass} handleMatch={this.handleMatch} />
       </>
     )

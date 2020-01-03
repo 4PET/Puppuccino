@@ -1,18 +1,48 @@
 #root {
     width: 40vw;
     margin: 0 auto;
-    font-family: Roboto;
+}
+body {
+	font-family: 'Roboto', sans-serif;
 }
 
-#dogProfileForm, #userProfileForm label, input, select, textarea, button {
-    margin-top: 10px;
-    height: 160%;
+#dogProfileForm label, input, select, textarea {
+    margin-top: 5px;
+	height: 160%;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Montserrat', serif;
+	outline: none;
+}
+
+#dogProfileForm select{
+	background-color: white;
+	height: 20px;
+}
+
+h4 {
+	font-family: 'Montserrat', serif;
+}
+
+#userProfileForm label, input, select, textarea {
+    margin-top: 5px;
+	height: 160%;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Montserrat', serif;
+	outline: none;
+}
+#userProfileForm select{
+	background-color: white;
+	height: 20px;
 }
 
 //SIGN UP AND SIGN IN
 #loginContainer,
 #signupContainer {
-  margin-top: 30vh;
+  margin-top: 0.5vh;
   background-color: rgba(212, 222, 235, 0.493);
   border-radius: 10px;
   padding: 20px;
@@ -35,17 +65,14 @@
   // border-radius: 5px;
   height: 20px;
 }
-
 #loginForm ::placeholder{
   color: #3897f0;
   font-size: 1.3em;
 }
-
 #signupForm ::placeholder{
   color: #3897f0;
   font-size: 1.3em;
 }
-
 .loginButtons {
   padding: 5px;
   border: 1px solid transparent;
@@ -61,7 +88,6 @@
   color:#3897f0;
   border: 1px solid #3897f0;
 }
-
 .toggleSignup {
   margin-top: 20px;
   display: flex;
@@ -69,82 +95,157 @@
   // width: 75%;
 }
 //END OF SIGN UP AND SIGN IN
-
 #dogProfileForm, #userProfileForm {
     display: flex;
     flex-direction: column;
     background-color: rgba(212, 222, 235, 0.493);
     padding: 30px;
 }
-
 $sent-msg-bg: rgb(219, 231, 222);
 $received-msg-bg: #D3CDEB;
 $chat-bg-color: #F9F9F9;
+#chatroom {
+    overflow: auto;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+}
+.sent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-self: flex-end;
+    color: black;
+}
+.sent span {
+    display: flex;
+}
+.speech-bubble-received {
+    position: relative;
+    background: $received-msg-bg;
+    border-radius: .4em;
+    margin: 5px;
+    max-width: 60%;
+}
+.speech-bubble-received:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 0.25em solid transparent;
+    border-right-color: $received-msg-bg;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -0.125em;
+    margin-left: -0.25em;
+}
+.speech-bubble-sent {
+    position: relative;
+    background: $sent-msg-bg;
+    border-radius: .4em;
+    margin: 5px;
+    max-width: 60%;
+    align-self: right;
+}
+.speech-bubble-sent:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 0.25em solid transparent;
+    border-left-color: $sent-msg-bg;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -0.125em;
+    margin-right: -0.25em;
+}
+
+#titleBanner h1, img {
+	display: inline-block;
+	font-family: 'Dancing Script', cursive;
+	margin-top: 20vh;
+}
+
+#titleBanner {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
 
 #chatroom {
 	overflow: auto;
 	margin: 0 auto;
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	overflow-wrap: break-word;
 }
 
-.sent {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-self: flex-end;
-	color: black;
+ul {
+	list-style-type:none;
+	font-family: 'Montserrat', sans-serif;
+	padding-left: 0;
+	strong {
+		padding: 5px;
+	}
 }
 
-.sent span {
-	display: flex;
+li {
+	margin-bottom: 5px;
+}
+#inputimage {
+	border-radius: 10px;
+	margin-top: 10px;
 }
 
-.speech-bubble-received {
-	position: relative;
-	background: $received-msg-bg;
-	border-radius: .4em;
-	margin: 5px;
-	max-width: 60%;
+h2 {
+	font-family: 'Dancing Script', cursive;
 }
 
-.speech-bubble-received:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 0.25em solid transparent;
-	border-right-color: $received-msg-bg;
-	border-left: 0;
-	border-bottom: 0;
-	margin-top: -0.125em;
-	margin-left: -0.25em;
+.currentChat {
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 15px;
 }
 
-.speech-bubble-sent {
-	position: relative;
-	background: $sent-msg-bg;
-	border-radius: .4em;
-	margin: 5px;
-	max-width: 60%;
-	align-self: right;
+button {
+  padding: 5px;
+  border: 1px solid transparent;
+  background-color: #98c6f0;
+  color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  outline:none;
+
+}
+button:hover {
+	background-color: #53a8f8;
+	}
+
+.matchCard, .currentChat, #userProfileForm, #dogProfileForm {
+	border: none;
+	border-radius: 10px;
+	background-color: #e9f3ff;
+	padding: 10px;
 }
 
-.speech-bubble-sent:after {
-	content: '';
-	position: absolute;
-	right: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 0.25em solid transparent;
-	border-left-color: $sent-msg-bg;
-	border-right: 0;
-	border-bottom: 0;
-	margin-top: -0.125em;
-	margin-right: -0.25em;
+.matchBtns {
+	width: 48%;
+	margin-right: 3px;
+	margin-left: 4px;
+	outline:none;
 }
+
+#noMatchMsg {
+	margin: 10px;
+	font-family: 'Montserrat', serif;
+}
+
+#chatBox {
+	margin-top: 10px;
+}
+

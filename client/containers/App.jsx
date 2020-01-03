@@ -49,29 +49,33 @@ class App extends React.Component {
     let displayed = null;
     let navigation = null;
     if (this.state.pageToRender === "login") {
-      displayed = (<LoginContainer toMatch={this.toMatch} toMyAccount={this.toMyAccount}/>);
+      displayed = (<LoginContainer toMatch={this.toMatch} toMyAccount={this.toMyAccount} />);
     }
 
-    else if(this.state.pageToRender === "match"){
+    else if (this.state.pageToRender === "match") {
       displayed = (
-        <MatchContainer userId = {this.state.userId} dogId={this.state.dogId}/>
+        <MatchContainer userId={this.state.userId} dogId={this.state.dogId} />
       );
     }
     else if(this.state.pageToRender === "myAccount") {
       displayed = (<MyAccount userId = {this.state.userId} dogId={this.state.dogId} toMatch={this.toMatch}/>);
     }
-    else if(this.state.pageToRender === "chat"){
-      displayed = (<ChatContainer userId = {this.state.userId} dogId={this.state.dogId} />);
+    else if (this.state.pageToRender === "chat") {
+      displayed = (<ChatContainer userId={this.state.userId} dogId={this.state.dogId} />);
     }
 
-    if (this.state.pageToRender !== 'login'){
+    if (this.state.pageToRender !== 'login') {
       navigation = (
-        <Navigation userId = {this.state.userId} dogId={this.state.dogId} signOut={this.signOut} handleClickMyAccount={this.toMyAccount} toChat ={this.toChat} toMatch={this.toMatch} />
+        <Navigation userId={this.state.userId} dogId={this.state.dogId} signOut={this.signOut} handleClickMyAccount={this.toMyAccount} toChat={this.toChat} toMatch={this.toMatch} />
       )
     }
-    
+
     return (
       <React.Fragment>
+        <div id="titleBanner">
+          <h1>Puppuccino</h1>
+          <img src="https://cdn.dribbble.com/users/3390157/screenshots/6315498/1_2x.png" height='80px' />
+        </div>
         {navigation}
         {displayed}
       </React.Fragment>

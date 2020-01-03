@@ -2,7 +2,7 @@ import React from 'react';
 
 const MatchBtn = ({ handleMatch }) => {
   return (
-    <button onClick={handleMatch}>
+    <button className="matchBtns" onClick={handleMatch}>
       Match
     </button>
   )

@@ -19,6 +19,13 @@ const Signup = props => {
           placeholder="Password"
           onChange={e => props.updateInfo(e.target.name, e.target.value)}
         />
+        <input
+          className="loginInput"
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          onChange={e => props.updateInfo(e.target.name, e.target.value)}
+        />
         <button className="loginButtons" onClick={
           props.handleSignup
         }>Sign Up</button>
