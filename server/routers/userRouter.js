@@ -11,7 +11,7 @@ router.post('/verify', userController.verifyUser, userController.getDogInfo, (re
     res.status(200).json(res.locals.userData);
 });
 
-router.post('/createNewUser', userController.hashPassword, userController.createUser, (req, res) => {
+router.post('/createNewUser', userController.createUser, (req, res) => {
     res.status(200).json(res.locals.user);
 });
 

@@ -1,28 +1,8 @@
 const db = require('../models/userModel');
 
-// const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-// const fs = require('fs');
-const { cryptoKey } = require('../../config');
-const User = require('../models/userModel');
 const userController = {};
 
-//THIS ISN'T BEING USED AT THE MOMENT
-userController.hashPassword = (req, res, next) => {
-    const { username, password } = req.body;
-    bcrypt.hash(password, 10, function (err, hash) {
-        if (err) {
-            console.log(`${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`, "| USERNAME:", `${req.body.username}`, "| userController.hashPassword | ERROR: ", `${err}`)
-            return next(err);
-        } else {
-            res.locals.userInfo = {
-                username,
-                password: hash
-            };
-            return next();
-        }
-    });
-}
 
 userController.createUser = (req, res, next) => {
     let { username, password } = req.body;
@@ -89,27 +69,6 @@ userController.verifyUser =  (req, res, next) => {
       return next({ error: err });
     })
 }
-
-// userController.verifyUser = async (req, res, next) => {
-//   res.locals.userData = [];
-//   const { username, password } = req.body;
-//   try {
-//       const text = `
-//           SELECT * FROM users
-//           WHERE username=$1 AND password=$2
-//       `;
-//       const params = [username, password];
-//       const result = await db.query(text, params);
-//       res.locals.userData[0] = result.rows[0];
-//       next();
-//   }
-//   catch (err) {
-//       next({
-//           log: `userController.verifyUser: ERROR: ${err}`,
-//           message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
-//       });
-//   }
-// }
 
 userController.getUserInfo = async (req, res, next) => {
     res.locals.userData = [];
@@ -248,3 +207,27 @@ userController.checkMatch = async (req, res, next) => {
 }
 
 module.exports = userController
+
+
+
+
+// userController.verifyUser = async (req, res, next) => {
+//   res.locals.userData = [];
+//   const { username, password } = req.body;
+//   try {
+//       const text = `
+//           SELECT * FROM users
+//           WHERE username=$1 AND password=$2
+//       `;
+//       const params = [username, password];
+//       const result = await db.query(text, params);
+//       res.locals.userData[0] = result.rows[0];
+//       next();
+//   }
+//   catch (err) {
+//       next({
+//           log: `userController.verifyUser: ERROR: ${err}`,
+//           message: { err: 'Error occurred in userController.verifyUser. Check server logs for more details.' }
+//       });
+//   }
+// }
