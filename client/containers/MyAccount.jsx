@@ -132,7 +132,7 @@ class MyAccount extends React.Component {
     render() {
         return (
             <div>
-                <h1>My Account</h1>
+                <h2>My Account</h2>
                 <UserComponent
                     saveUserInfo={this.saveUserInfo}
                     updateInfo={this.updateInfo}

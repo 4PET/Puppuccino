@@ -8,8 +8,8 @@ const Profile = ({ dogList, currentPhoto, handlePass, handleMatch }) => {
   }
   return (
     <>
-      <div>
-        <img id='inputimage' alt='' src={dogList[currentPhoto].photo} width="100%" height="500px"/>
+      <div className="matchCard">
+        <img id='inputimage' alt='' src={dogList[currentPhoto].photo} width="100%" />
         <ul>
           <li><strong>Name:</strong> {dogList[currentPhoto].name}</li>
           <li><strong>Age:</strong> {dogList[currentPhoto].age}</li>
@@ -18,14 +18,12 @@ const Profile = ({ dogList, currentPhoto, handlePass, handleMatch }) => {
           <li><strong>Size:</strong> {dogList[currentPhoto].size}</li>
           <li><strong>Temperament:</strong> {dogList[currentPhoto].temperament}</li>
           <li><strong>Neutered_spayed:</strong> {dogList[currentPhoto].neutered_spayed}</li>
-          <li><strong>About Me:</strong> {dogList[currentPhoto].bio}</li>      
+          <li><strong>About Me:</strong> {dogList[currentPhoto].bio}</li>
         </ul>
-      </div>
-      <div>
         <PassBtn handlePass={handlePass} />
         <MatchBtn handleMatch={handleMatch} />
       </div>
-   </>
+    </>
   )
 }
 

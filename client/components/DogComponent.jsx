@@ -3,7 +3,7 @@ import React from "react";
 const DogComponent = props => {
     return (
         <div>
-            <h2>Dog Profile</h2>
+            <h4>Dog Profile</h4>
             <form id="dogProfileForm">
                 <label >Name *</label>
                 <input

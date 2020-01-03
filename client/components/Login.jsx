@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Login = ({updateInfo, handleLogin,handleToggleSignup }) => {
+const Login = ({ updateInfo, handleLogin, handleToggleSignup }) => {
   return (
     <div id="loginContainer" className="container">
       <form id="loginForm">
