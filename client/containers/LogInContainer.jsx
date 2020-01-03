@@ -9,31 +9,29 @@ class LoginContainer extends React.Component {
     this.state = {
       username: '',
       password: '',
+      confirmPassword: '',
       userId: '',
       onSignUpPage: false,
     };
-    this.updateInfo = this.updateInfo.bind(this);
-    this.handleSignin = this.handleSignin.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
-    this.toggleSignup = this.toggleSignup.bind(this);
   }
 
-  updateInfo(property, value) {
+  updateInfo = (property, value) => {
     let updateObj = {};
     updateObj[property] = value;
     this.setState(updateObj);
   }
 
-  handleSignin(e) {
+  handleSignin = (e) => {
     console.log('clicked', { username: this.state.username, password: this.state.password });
     e.preventDefault();
     axios.post('/user/verify', { username: this.state.username, password: this.state.password })
       .then(response => {
+        console.log('this is sing in response', response);
         if (response.data[0] && response.data[1]) {
-          this.props.toMatch(response.data[0]._id);
+          this.props.toMatch(response.data[0]._id, response.data[1]._id);
         }
         else if (response.data[0]) {
-          this.props.toMyAccount();
+          this.props.toMyAccount(response.data[0]._id);
         }
         else {
           alert('password wrong!');
@@ -41,22 +39,24 @@ class LoginContainer extends React.Component {
       })
   }
 
-  handleSignup(e) {
-    console.log("sign up button")
+  handleSignup = (e) => {
     e.preventDefault();
-    axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
-      .then(() => {
-        this.props.toMatch(response.data._id);
-        this.setState({
-          onSignUpPage: false,
+    if (this.state.password !== this.state.confirmPassword) { alert("Confirm passwords match.") } else {
+
+      axios.post('/user/createNewUser', { username: this.state.username, password: this.state.password })
+        .then((response) => {
+          this.props.toMyAccount(response.data._id);
+          this.setState({
+            onSignUpPage: false,
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
         });
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    }
   }
 
-  toggleSignup() {
+  toggleSignup = () => {
     this.setState(prevState => ({
       onSignUpPage: !prevState.onSignUpPage
     }));

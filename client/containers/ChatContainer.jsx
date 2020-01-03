@@ -12,7 +12,6 @@
 import React from 'react';
 import ChatBox from '../components/ChatBox.jsx'
 import MessageContainer from './MessageContainer.jsx'
-import Navigation from '../components/Navigation/Navigation'
 import axios from 'axios'
 
 class ChatContainer extends React.Component {
@@ -23,8 +22,6 @@ class ChatContainer extends React.Component {
       chatList: [],
       allChats: {}
     };
-
-    this.fetchChats = this.fetchChats.bind(this);
   }
 
   componentDidMount() {
@@ -32,17 +29,17 @@ class ChatContainer extends React.Component {
     setInterval(() => this.fetchChats(), 10000);
   }
 
-  fetchChats() {
+  fetchChats = () => {
     axios.get('/chat', {
-      params: { userId: this.props.userId }
+      params: { dogId: this.props.dogId }
     })
       .then(res => {
         const cache = new Set();
         let chatList = [];
         let allChats = {};
         for (let i = res.data.length - 1; i >= 0; i--) {
-          let opponentId = res.data[i].sender_id == this.props.userId ? res.data[i].receiver_id : res.data[i].sender_id;
-          let opponentName = res.data[i].sender_id == this.props.userId ? res.data[i].receivername : res.data[i].sendername;
+          let opponentId = res.data[i].sender_id == this.props.dogId ? res.data[i].receiver_id : res.data[i].sender_id;
+          let opponentName = res.data[i].sender_id == this.props.dogId ? res.data[i].receivername : res.data[i].sendername;
           if (!cache.has(opponentId)) {
             cache.add(opponentId);
             chatList.push({
@@ -53,19 +50,19 @@ class ChatContainer extends React.Component {
             });
             allChats[opponentId] = [];
           }
-          allChats[opponentId].push(res.data[i]);
+          this.setState({ chatList, allChats })
         }
-        this.setState({ chatList, allChats })
       })
       .catch(err => console.log(err));
   }
 
   render() {
+    console.log(this.props.dogId, this.state.chatList)
     const display = [];
     if (this.state.messageWith > 0) {
       display.push(<MessageContainer
         key={0}
-        userId={this.props.userId}
+        dogId={this.props.dogId}
         opponentId={this.state.messageWith}
         messages={this.state.allChats[this.state.messageWith]}
         goBackFunction={() => {
@@ -89,13 +86,24 @@ class ChatContainer extends React.Component {
         />)
       }
     }
+
+    let noMatch;
+    if (this.state.chatList.length === 0) {
+      noMatch = (
+        <div id="noMatchMsg">You have no matches! Go discover your furry friends!</div>
+      )
+    }
+
     return (
       <div>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat={this.props.toChat} toMatch={this.props.toMatch} />
-        {this.state.chatList.length === 0 ? <div>No matches yet!</div> : display}
+        <h2>Chat</h2>
+        {display}
+        {noMatch}
       </div>
     )
   }
 }
+
+// {this.state.chatList.length === 0 ? <div>no match yet!</div> : display}
 
 export default ChatContainer;

@@ -1,13 +1,44 @@
 #root {
     width: 40vw;
     margin: 0 auto;
-	font-family: Roboto;
 }
-#dogProfileForm, #userProfileForm label, input, select, textarea, button {
-    margin-top: 10px;
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+#dogProfileForm label, input, select, textarea {
+    margin-top: 5px;
 	height: 160%;
 	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Montserrat', serif;
+	outline: none;
 }
+
+#dogProfileForm select{
+	background-color: white;
+	height: 20px;
+}
+
+h4 {
+	font-family: 'Montserrat', serif;
+}
+
+#userProfileForm label, input, select, textarea {
+    margin-top: 5px;
+	height: 160%;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	font-family: 'Montserrat', serif;
+	outline: none;
+}
+#userProfileForm select{
+	background-color: white;
+	height: 20px;
+}
+
 //SIGN UP AND SIGN IN
 #loginContainer,
 #signupContainer {
@@ -18,6 +49,7 @@
   display: flex;
   flex-direction: column;
 }
+
 #loginForm,
 #signupForm {
   display: flex;
@@ -25,6 +57,7 @@
   margin: 0 auto;
   width: 75%;
 }
+
 .loginInput{
   margin-top: 10px;
   // border-radius: 5px;
@@ -143,6 +176,12 @@ $chat-bg-color: #F9F9F9;
 	align-items: flex-end;
 }
 
+#chatroom {
+	overflow: auto;
+	margin: 0 auto;
+	width: 100%;
+}
+
 ul {
 	list-style-type:none;
 	font-family: 'Montserrat', sans-serif;
@@ -178,6 +217,7 @@ button {
   border-radius: 5px;
   margin-top: 10px;
   font-size: 0.9em;
+  outline:none;
 
 }
 button:hover {
@@ -194,5 +234,16 @@ button:hover {
 .matchBtns {
 	width: 48%;
 	margin-right: 3px;
-	margin-left: 4px
+	margin-left: 4px;
+	outline:none;
 }
+
+#noMatchMsg {
+	margin: 10px;
+	font-family: 'Montserrat', serif;
+}
+
+#chatBox {
+	margin-top: 10px;
+}
+

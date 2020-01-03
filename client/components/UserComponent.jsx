@@ -3,7 +3,7 @@ import React from "react";
 const UserComponent = props => {
     return (
         <div>
-            <h3>User Profile</h3>
+            <h4>User Profile</h4>
             <form id="userProfileForm">
                 <label >Age *</label>
                 <input

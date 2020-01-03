@@ -1,9 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import MatchBtn from "../components/Match/MatchBtn"
-import PassBtn from "../components/Match/PassBtn"
 import Profile from "../components/Match/Profile";
-import Navigation from '../components/Navigation/Navigation'
 
 class MatchContainer extends React.Component {
   constructor(props) {
@@ -12,61 +9,84 @@ class MatchContainer extends React.Component {
       dogList: [],
       currentPhoto: 0,
       pass: false,
-      like: false
+      dog1_id: null,
+      dog2_id: null,
+      matches: [],
     };
-    this.fetchProfile = this.fetchProfile.bind(this);
   }
 
   componentDidMount() {
-    console.log('fetching data');
     this.fetchProfile();
   }
 
   handlePass = () => {
-    this.setState(prevState => ({
-      currentPhoto: prevState.currentPhoto += 1,
-      dogPhoto: prevState.dogList[this.state.currentPhoto]
-    }));
-    console.log(this.state.currentPhoto)
+    if (this.state.currentPhoto === this.state.dogList.length - 1) {
+      this.setState(prevState => ({
+        currentPhoto: 0,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    } else {
+
+      this.setState(prevState => ({
+        currentPhoto: prevState.currentPhoto += 1,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    }
   }
 
-  fetchProfile() {
-    console.log('im in fetchProfile');
-    axios.get('/user/getOtherDogs', {
-      params: {
-        userId: this.props.userId
-      }
-    })
-      .then(res => {
-        this.setState(() => ({
-          dogList: res.data,
-        }))
+  handleMatch = (e) => {
+    e.preventDefault();
+    console.log('here', { dog1_id: this.props.dogId })
+    console.log('here', { userId: this.props.userId })
+    console.log('here2', { dog2_id: this.state.dogList[this.state.currentPhoto]._id })
+    if (this.state.currentPhoto === this.state.dogList.length - 1) {
+      this.setState(prevState => ({
+        currentPhoto: 0,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    } else {
+      this.setState(prevState => ({
+        currentPhoto: prevState.currentPhoto += 1,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    }
+    // axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
+    //   .then(() => {
+    //     this.props.toMatch(response.data._id);
+    //     this.setState({
+    //       onSignUpPage: false,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
+  }
+
+  fetchProfile = async () => {
+    try {
+      const response = await axios.get('/user/getOtherDogs', {
+        params: {
+          userId: this.props.userId
+        }
       })
-      .catch(function (error) {
-        console.error(error);
-      });
+      const profiles = await this.setState(() => ({ dogList: response.data }))
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
 
   render() {
-    console.log('this is match state', this.state);
     return (
       <>
-        <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat={this.props.toChat} />
-        <h2>My Matches</h2>
-        <div className="matchCard">
-          <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} />
-          <div>
-            <PassBtn handlePass={this.handlePass} />
-            <MatchBtn likeButton={this.likeButton} />
-          </div>
-        </div>
+        <h2>Matches</h2>
+        <Profile dogList={this.state.dogList} currentPhoto={this.state.currentPhoto} handlePass={this.handlePass} handleMatch={this.handleMatch} />
       </>
     )
   }
 }
 
 export default MatchContainer;
-
 
 

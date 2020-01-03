@@ -5,14 +5,16 @@ const Login = ({ updateInfo, handleLogin, handleToggleSignup }) => {
     <div id="loginContainer" className="container">
       <form id="loginForm">
         <h2>Log In</h2>
-        <input className="loginInput"
+        <input
+          className="loginInput"
           type="text"
           name="username"
           autoComplete="username"
           placeholder="Username"
           onChange={e => updateInfo(e.target.name, e.target.value)}
         />
-        <input className="loginInput"
+        <input
+          className="loginInput"
           type="password"
           name="password"
           autoComplete="password"
@@ -21,9 +23,7 @@ const Login = ({ updateInfo, handleLogin, handleToggleSignup }) => {
         />
         <button className="loginButtons" onClick={handleLogin}>Log In</button>
         <div className="toggleSignup" onClick={handleToggleSignup}>
-          <button className="loginButtons" id="secondaryBtn">
-            Click to Sign Up
-          </button>
+          <button className="loginButtons" id="secondaryBtn">Click to Sign Up</button>
         </div>
       </form>
     </div >

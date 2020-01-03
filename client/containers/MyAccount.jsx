@@ -1,9 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Signout from "../components/Signout.jsx";
 import UserComponent from "../components/UserComponent.jsx";
 import DogComponent from "../components/DogComponent.jsx";
-import Navigation from '../components/Navigation/Navigation';
 
 class MyAccount extends React.Component {
     constructor(props) {
@@ -28,23 +26,19 @@ class MyAccount extends React.Component {
             dogBio: '',
             dogPhoto: '',
         }
-        this.saveUserInfo = this.saveUserInfo.bind(this);
-        this.saveDogInfo = this.saveDogInfo.bind(this);
-        this.getUserInfo = this.getUserInfo.bind(this);
-        this.updateInfo = this.updateInfo.bind(this)
     }
 
     componentDidMount() {
         this.getUserInfo()
     }
 
-    updateInfo(property, value) {
+    updateInfo = (property, value) => {
         let updateObj = {};
         updateObj[property] = value;
         this.setState(updateObj);
     }
 
-    saveUserInfo() {
+    saveUserInfo = () => {
         axios.post('/user/saveUserInfo', {
             userId: this.state.userId,
             userAge: this.state.userAge,
@@ -61,7 +55,7 @@ class MyAccount extends React.Component {
             });
     }
 
-    saveDogInfo() {
+    saveDogInfo = () => {
         axios.post('/user/saveDogInfo', {
             dogName: this.state.dogName,
             dogAge: this.state.dogAge,
@@ -84,9 +78,13 @@ class MyAccount extends React.Component {
         console.log(this.state)
     }
 
-    getUserInfo() {
+    getUserInfo = () => {
         axios.post('/user/login', { userId: this.props.userId })
             .then(response => {
+                console.log('this is response for first sign in', response, this.props.userId, this.props.dogId);
+                if (response.data[0].age === null) {
+
+                }
                 this.setState({
                     isLoggedIn: true,
                     userId: response.data[0]._id,
@@ -106,7 +104,6 @@ class MyAccount extends React.Component {
                     dogPhoto: response.data[1].photo,
                 });
             })
-            .then(this.fetchProfile)
             .catch(function (error) {
                 console.error(error);
             });
@@ -116,7 +113,6 @@ class MyAccount extends React.Component {
         console.log('this is my account state', this.state)
         return (
             <div>
-                <Navigation signOut={this.props.signOut} handleClickMyAccount={this.props.toMyAccount} toChat={this.props.toChat} toMatch={this.props.toMatch} />
                 <h2>My Account</h2>
                 <UserComponent
                     saveUserInfo={this.saveUserInfo}
