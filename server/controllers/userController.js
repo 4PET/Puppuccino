@@ -33,8 +33,8 @@ userController.verifyUser =  (req, res, next) => {
     const { username, password } = req.body;
 
     const text = `
-    SELECT username, password FROM users
-    WHERE username=$1
+        SELECT * FROM users
+        WHERE username=$1
     `;
 
     const params = [username];
