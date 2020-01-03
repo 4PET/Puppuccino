@@ -224,38 +224,45 @@ userController.saveDogInfo = async (req, res, next) => {
 
 userController.matchDogs = async (req, res, next) => {
     const { dog1_id, dog2_id } = req.body;
-
-    try {
-        const text = `
-            INSERT INTO matches (dog1_id, dog2_id)
-            VALUES ($1, $2)
-            RETURNING *
-        `;
-        const params = [dog1_id, dog2_id];
-        const result = await db.query(text, params);
-        // res.locals.matches = result.rows[0];
-        next();
+    if(!res.locals.matchesExist){
+        try {
+            const text = `
+                INSERT INTO matches (dog1_id, dog2_id)
+                VALUES ($1, $2)
+                RETURNING *
+            `;
+            const params = [dog1_id, dog2_id];
+            const result = await db.query(text, params);
+            res.locals.results = result.rows[0];
+            next();
+        }
+        catch (err) {
+            next({
+                log: `userController.matchDogs: ERROR: ${err}`,
+                message: { err: 'Error occurred in userController.matchDogs. Check server logs for more details.' }
+            });
+        }
     }
-
-    catch (err) {
-        next({
-            log: `userController.matchDogs: ERROR: ${err}`,
-            message: { err: 'Error occurred in userController.matchDogs. Check server logs for more details.' }
-        });
+    else{
+        res.locals.results = 'matched!';
     }
 }
 
 userController.checkExistingMatch = async (req, res, next) => {
-    res.locals.matches = [];
     const { dog1_id, dog2_id } = req.body;
     try {
         const text = `
             SELECT * FROM matches
             WHERE dog1_id=$1 AND dog2_id=$2
         `;
-        const params = [dog1_id, dog2_id];
+        const params = [dog2_id, dog1_id];
         const result = await db.query(text, params);
-        res.locals.matches[0] = result.rows[0];
+        if(result.rows.length === 0) {
+            res.locals.matchesExist = false;
+        }
+        else{
+            res.locals.matchesExist = true;
+        }
         next();
     }
     catch (err) {

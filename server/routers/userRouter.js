@@ -32,7 +32,10 @@ router.get('/getOtherDogs', userController.getWeight, userController.getOtherDog
 })
 
 router.post('/matchDogs', userController.checkExistingMatch, userController.matchDogs, (req, res) => {
-    res.sendStatus(200);
+    console.log('this shoudl be match!', res.locals.results);
+    res.status(200).json(res.locals.results);
 })
+
+
 
 module.exports = router;
