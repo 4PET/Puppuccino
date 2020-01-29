@@ -26,7 +26,11 @@ class ChatContainer extends React.Component {
 
   componentDidMount() {
     this.fetchChats();
-    setInterval(() => this.fetchChats(), 10000);
+    this.interval = setInterval(() => this.fetchChats(), 10000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
   }
 
   fetchChats = () => {

@@ -130,6 +130,7 @@ class MyAccount extends React.Component {
     }
 
     render() {
+        console.log('my account', this.props.userId, this.props.dogId, this.state);
         return (
             <div>
                 <h2>My Account</h2>

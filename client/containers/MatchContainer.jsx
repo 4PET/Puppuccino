@@ -9,8 +9,6 @@ class MatchContainer extends React.Component {
       dogList: [],
       currentPhoto: 0,
       pass: false,
-      dog1_id: null,
-      dog2_id: null,
       matches: [],
     };
   }
@@ -36,33 +34,26 @@ class MatchContainer extends React.Component {
 
   handleMatch = async (e) => {
     e.preventDefault();
-    // console.log('here', {dog1_id: this.props.dogId})
-    // console.log('here2', {dog2_id: this.state.dogList[this.state.currentPhoto]._id})
     try {
-      const result = await this.setState(() => (
-        {
-          dog1_id: this.props.dogId, 
-          dog2_id: this.state.dogList[this.state.currentPhoto]._id
-        }
-      ))
-
-      axios.get('/user/checkExistingMatch', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id })
-      .then(response => {
-        if (response.data[0] && response.data[1]) {
-          this.props.toMatch(response.data[0]._id,response.data[1]._id);
-        }
-        else if (response.data[0]) {
-          this.props.toMyAccount(response.data[0]._id);
-        }
-        else {
-          alert('password wrong!');
-        }
-      })
-
-      const response = await axios.post('/user/matchDogs', { dog1_id: this.state.dog1_id, dog2_id: this.state.dog2_id})
+      const response = await axios.post('/user/matchDogs', { dog1_id: this.props.dogId, dog2_id: this.state.dogList[this.state.currentPhoto]._id})
+      if(response === 'matched!'){
+        console.log('matched');
+      }
+      console.log('this is resonse dog id', response.data.dog2_id);
     }
     catch (e) {
       console.error(e);
+    }
+    if (this.state.currentPhoto === this.state.dogList.length - 1) {
+      this.setState(prevState => ({
+        currentPhoto: 0,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
+    } else {
+      this.setState(prevState => ({
+        currentPhoto: prevState.currentPhoto += 1,
+        dogPhoto: prevState.dogList[this.state.currentPhoto]
+      }));
     }
   }
 
