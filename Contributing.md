@@ -1,4 +1,4 @@
-# Contributing to Andalusian
+# Contributing to Puppuccino
 
 When it comes to open source, there are many different kinds of contributions that can be made, all of which are valuable. Below are a few guidelines that should help you as you prepare your contribution.
 
@@ -28,13 +28,8 @@ The following steps will get you setup to contribute changes to this repo:
 2. Clone your fork locally
 *# in a terminal, cd to parent directory where you want your clone to be, then git clone https://github.com/<your_github_username>/puppuccino.git*
 *cd puppuccino*
-3. Install dependencies and build. Andalusian uses yarn. If you install using npm, unnecessary package-lock.json files will be generated.
+3. Install dependencies and build. 
 *npm install*
 *npm run build*
 *npm start*
 
-## Testing
-Calling npm run test from the root directory will run tests.
-
-*# run all tests*
-*npm run test*
